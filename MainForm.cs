@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CertMaker5000
 {
@@ -23,216 +24,30 @@ namespace CertMaker5000
         {
             InitializeComponent();
         }
+
+        #region Helper Methods
         public static int CountBools(params bool[] args)
         {
             return args.Count(t => !t);
         }
-        private void FieldManagerLabel_Click(object sender, EventArgs e)
-        {
-            FieldManagementForm.Show();
-        }
+
         private void CheckValidation()
         {
             if (CountBools(ValidPDFFile, ValidCSVFile) == 0)
             {
                 FieldManagerLabel.Visible = true;
+                LoadPdfButton.Visible = true;
+                GenerateNowButton.Visible = true;
+                GenerateAndEmailButton.Visible = true;
+                //PreviewEmailButton.Visible = true;
             }
             else
             {
                 FieldManagerLabel.Visible = false;
-            }
-        }
-        private DialogResult? WarningOfResetFields(string PdfOrCsv)
-        {
-            if (PdfOrCsv.ToUpper() == "PDF" && FieldManagementForm.pDFFieldValues.Count > 0)
-            {
-                return MessageBox.Show("Please note that if you choose a different PDF. Your field mapping will be reset and you will need to redo this again.", "Data Reset Confirmation", MessageBoxButtons.OKCancel);
-            }
-            if (PdfOrCsv.ToUpper() == "CSV")
-            {
-                return MessageBox.Show("Please note that if you choose a different PDF. Your field mapping will be reset and you will need to redo this again.", "Data Reset Confirmation", MessageBoxButtons.OKCancel);
-            }
-            return null;
-        }
-        private void LoadPDFFields()
-        {
-            FileInfo CertFile = new FileInfo(CertTemplateTextBox.Text);
-            if (!CertFile.Exists)
-            {
-                MessageBox.Show("Sorry your template not exist or you do not have access to it");
-                return;
-            }
-
-
-            PdfReader pdfReader = new PdfReader(CertFile.FullName);
-            AcroFields docfields = pdfReader.AcroFields;
-            ICollection<string> FieldKeys = docfields.Fields.Keys;
-            ValidPDFFile = ValidatePDFFile(CertFile.FullName);
-            if (ValidPDFFile)
-            {
-                FieldManagementForm.PDFFieldValueBindingSource.Clear();
-                foreach (var k in FieldKeys)
-                {
-                    var val = new PDFFieldValue();
-                    val.Field = k;
-                    FieldManagementForm.PDFFieldValueBindingSource.Add(val);
-                }
-            }
-
-        }
-
-        private bool ValidatePDFFile(string FilePath)
-        {
-            PdfReader pdfReader = new PdfReader(FilePath);
-            AcroFields docfields = pdfReader.AcroFields;
-            ICollection<string> FieldKeys = docfields.Fields.Keys;
-            if (FieldKeys == null || FieldKeys.Count == 0)
-            {
-                MessageBox.Show("Sorry but your PDF does not have any fillable fields and therefore is not valid.");
-                return false;
-            }
-            return true;
-        }
-
-        private void LoadPdfButton_Click(object sender, EventArgs e)
-        {
-            PreviewPDF();
-            PreviewTabControl.SelectedTab = PDFPreviewTab;
-        }
-
-        private void WritePDF(string? FilePath, DataRow? row = null)
-        {
-            // C:\Users\Owner\Downloads\DRopCertTemplate.pdf
-            // ToDo: Refactor this. not to repeakj Logic in other locations.
-            FileInfo CertFile = new FileInfo(CertTemplateTextBox.Text);
-            if (!CertFile.Exists)
-            {
-                MessageBox.Show("Sorry your template not exist or you do not have access to it");
-                return;
-            }
-            if (FilePath == null)
-            {
-                string FileName = @"DRopCertTemplate.pdf";
-                FilePath = Path.Combine(@"C:\Users\Owner\Downloads\", FileName);
-            }
-            row["PDFFilePathColumn"] = FilePath;
-            //row["PhotoFilePathColumn"] = FilePath;
-
-
-            using (FileStream outFile = new FileStream(FilePath, FileMode.Create))
-            {
-                PdfReader pdfReader = new PdfReader(CertFile.FullName);
-                PdfStamper pdfStamper = new PdfStamper(pdfReader, outFile) { FormFlattening = true };
-                AcroFields docfields = pdfStamper.AcroFields;
-                if (row == null)
-                {
-                    foreach (PDFFieldValue f in FieldManagementForm.PDFFieldValueBindingSource)
-                    {
-                        docfields.SetField(f.Field, f.Value);
-                    }
-                }
-                else
-                {
-                    foreach (PDFFieldValue f in FieldManagementForm.PDFFieldValueBindingSource)
-                    {
-                        if (f.Value.Contains("{{"))
-                        {
-                            string field = f.Value;
-                            field = field.Replace("{{", "");
-                            field = field.Replace("}}", "");
-                            string NewFieldValue = row.Field<string>(field).ToString();
-                            docfields.SetField(f.Field, NewFieldValue);
-                        }
-                        else
-                        {
-                            docfields.SetField(f.Field, f.Value);
-                        }
-
-                    }
-                }
-
-
-                pdfStamper.Close();
-                pdfReader.Close();
-
-                FileInfo fi = new FileInfo(FilePath);
-                string ImagePath = Path.Combine(fi.Directory.FullName, Path.GetFileNameWithoutExtension(fi.Name) + ".jpg").ToString();
-                row["PhotoFilePathColumn"] = ImagePath;
-                byte[] pdfbytearray = File.ReadAllBytes(FilePath);
-                string pdfstring = Convert.ToBase64String(pdfbytearray, 0, pdfbytearray.Length);
-
-                PDFtoImage.Conversion.SaveJpeg(ImagePath, pdfstring);
-                PDFViewerPicture.ImageLocation = ImagePath;
-            }
-        }
-
-        private void WritePDFButton_Click(object sender, EventArgs e)
-        {
-            //WritePDF(Path.Combine(CertDropTextBox.Text, "DRopCertTemplate.pdf"));
-        }
-
-        private void OpenPDFTemplateDialogButton_Click(object sender, EventArgs e)
-        {
-            DialogResult? result = null;
-            if (!String.IsNullOrEmpty(CertTemplateTextBox.Text))
-            {
-                result = WarningOfResetFields("PDF");
-            }
-            if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "PDF Files|*.pdf";
-            ofd.Multiselect = false;
-            ofd.CheckFileExists = true;
-            ofd.CheckPathExists = true;
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                if (result != null && result == DialogResult.OK)
-                {
-                    FieldManagementForm.PDFFieldValueBindingSource.Clear();
-                }
-                CertTemplateTextBox.Text = ofd.FileName;
-                LoadPDFFields();
-            }
-
-        }
-
-        private void OpenCsvFileDialogButton_Click(object sender, EventArgs e)
-        {
-            if (!ValidPDFFile)
-            {
-                MessageBox.Show("Sorry, but you must first select a PDF file so we can load it's fields.");
-                return;
-            }
-            DialogResult? result = null;
-            if (!String.IsNullOrEmpty(CertTemplateTextBox.Text))
-            {
-                result = WarningOfResetFields("CSV");
-            }
-
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Delimited (Comma,Tab,Pipe)|*.csv;*.txt";
-            ofd.Multiselect = false;
-            ofd.CheckFileExists = true;
-            ofd.CheckPathExists = true;
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                if (result != null && result == DialogResult.OK)
-                {
-                    foreach (PDFFieldValue f in FieldManagementForm.PDFFieldValueBindingSource)
-                    {
-                        f.Value = null!;
-                    }
-                }
-                UserCSVFileTextBox.Text = ofd.FileName;
-                ValidCSVFile = ValidateCSVFile(ofd.FileName);
-                CheckValidation();
-                VariablesAllowedListBox.DataSource = FieldManagementForm.PDFFieldValueBindingSource;
-                VariablesAllowedListBox.DisplayMember = "Display";
-                VariablesAllowedListBox.ValueMember = "Value";
+                LoadPdfButton.Visible = false;
+                GenerateNowButton.Visible = false;
+                GenerateAndEmailButton.Visible = false;
+                //PreviewEmailButton.Visible = false;
             }
         }
 
@@ -376,17 +191,19 @@ namespace CertMaker5000
 
         }
 
-        private void OpenCertDropDialogButton_Click(object sender, EventArgs e)
+        private bool ValidatePDFFile(string FilePath)
         {
-            CommonOpenFileDialog cofd = new CommonOpenFileDialog();
-            cofd.IsFolderPicker = true;
-            if (cofd.ShowDialog() == CommonFileDialogResult.Ok)
+            PdfReader pdfReader = new PdfReader(FilePath);
+            AcroFields docfields = pdfReader.AcroFields;
+            ICollection<string> FieldKeys = docfields.Fields.Keys;
+            if (FieldKeys == null || FieldKeys.Count == 0)
             {
-                CertDropTextBox.Text = cofd.FileName;
+                MessageBox.Show("Sorry but your PDF does not have any fillable fields and therefore is not valid.");
+                return false;
             }
+            return true;
         }
 
-        //public string DetectDelimiter(IEnumerable<string> lines, IEnumerable<char> delimiters)
         public char? DetectDelimiter(IEnumerable<string> lines)
         {
             List<char> delimiters = new List<char>();
@@ -408,7 +225,9 @@ namespace CertMaker5000
             // Find delimiters that have a frequency evenly divisible by the number of lines
             // (correct & consistent usage) and order them by largest frequency
             var possibleDelimiters = delimFrequency
-                              .Where(f => f.Value > 0 && f.Value % lines.Count() == 0)
+                              .Where(f => f.Value > 0
+                              //&& f.Value % lines.Count() == 0
+                              )
                               .OrderByDescending(f => f.Value)
                               .ToList();
 
@@ -424,6 +243,187 @@ namespace CertMaker5000
 
         }
 
+        private DialogResult? WarningOfResetFields(string PdfOrCsv)
+        {
+            if (PdfOrCsv.ToUpper() == "PDF" && FieldManagementForm.pDFFieldValues.Count > 0)
+            {
+                return MessageBox.Show("Please note that if you choose a different PDF. Your field mapping will be reset and you will need to redo this again.", "Data Reset Confirmation", MessageBoxButtons.OKCancel);
+            }
+            if (PdfOrCsv.ToUpper() == "CSV")
+            {
+                return MessageBox.Show("Please note that if you choose a different PDF. Your field mapping will be reset and you will need to redo this again.", "Data Reset Confirmation", MessageBoxButtons.OKCancel);
+            }
+            return null;
+        }
+
+        private bool CheckIfTableIsEmptyAndRespond()
+        {
+            if (CSVDataTable == null || CSVDataTable.Rows.Count == 0)
+            {
+                MessageBox.Show($"No Records have been parsed yet.{Environment.NewLine}Please try loading your CSV File Again");
+                return false;
+            }
+            foreach (PDFFieldValue f in FieldManagementForm.PDFFieldValueBindingSource)
+            {
+                if (String.IsNullOrEmpty(f.Value))
+                {
+                    MessageBox.Show($"Sorry, but it looks like you haven't completed your mapping yet.{Environment.NewLine}Please head over to \"Field Manager\" and complete your mapping");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private string CleanVariableString(string input)
+        {
+            string rval = String.IsNullOrEmpty(input) ? "" : input;
+            return rval.Replace("{{", "").Replace("}}", "");
+        }
+
+        private void UpdatePreviewEmailBody()
+        {
+            string NewText = HTMLBodyEditTextBox.Text;
+
+            var reg = new Regex("{{.*?}}");
+            var matches = reg.Matches(NewText);
+            foreach (var item in matches)
+            {
+                string rval = item.ToString()!;
+                string input = CleanVariableString(rval);
+                string reval = "";
+                if (CSVDataTable != null && CSVDataTable.Rows.Count > 0)
+                {
+                    if (UserListBox.Items.Count > 0)
+                    {
+                        if (UserListBox.SelectedItems.Count <= 0)
+                        {
+                            UserListBox.SelectedIndex = 0;
+                        }
+                        reval = ((DataRowView)UserListBox.SelectedItem).Row[input].ToString()!;
+                    }
+                    else
+                    {
+                        reval = CSVDataTable.Rows[0][input].ToString()!;
+                    }
+                }
+                else
+                {
+                    reval = rval;
+                }
+
+                reval = String.IsNullOrEmpty(reval) ? "" : reval;
+
+                NewText = NewText.Replace(rval, reval);
+            }
+            HTMLBodyPreviewTextBox.Text = NewText;
+        }
+
+        #endregion Helper Methods
+
+        #region Main Methods
+        private void WritePDF(string? FilePath, DataRow? row = null)
+        {
+            // C:\Users\Owner\Downloads\DRopCertTemplate.pdf
+            // ToDo: Refactor this. not to repeakj Logic in other locations.
+            FileInfo CertFile = new FileInfo(CertTemplateTextBox.Text);
+            if (!CertFile.Exists)
+            {
+                MessageBox.Show("Sorry your template not exist or you do not have access to it");
+                return;
+            }
+            if (FilePath == null)
+            {
+                string FileName = @"DRopCertTemplate.pdf";
+                FilePath = Path.Combine(@"C:\Users\Owner\Downloads\", FileName);
+            }
+            row["PDFFilePathColumn"] = FilePath;
+            //row["PhotoFilePathColumn"] = FilePath;
+
+
+            using (FileStream outFile = new FileStream(FilePath, FileMode.Create))
+            {
+                if (row != null)
+                {
+                    foreach (PDFFieldValue f in FieldManagementForm.PDFFieldValueBindingSource)
+                    {
+                        if (f.Value == null) { MessageBox.Show("Sorry, but you need to make sure you set all your fields in the \"Field Manager\" section "); return; }
+                    }
+                }
+                PdfReader pdfReader = new PdfReader(CertFile.FullName);
+                PdfStamper pdfStamper = new PdfStamper(pdfReader, outFile) { FormFlattening = true };
+                AcroFields docfields = pdfStamper.AcroFields;
+                if (row == null)
+                {
+                    foreach (PDFFieldValue f in FieldManagementForm.PDFFieldValueBindingSource)
+                    {
+                        docfields.SetField(f.Field, f.CapsValue ? f.Value.ToUpper() : f.Value);
+                    }
+                }
+                else
+                {
+
+                    foreach (PDFFieldValue f in FieldManagementForm.PDFFieldValueBindingSource)
+                    {
+                        if (f.Value == null) { MessageBox.Show("Sorry, but you need to make sure you "); }
+                        if (f.Value.Contains("{{"))
+                        {
+                            string field = f.Value;
+                            field = field.Replace("{{", "");
+                            field = field.Replace("}}", "");
+                            string NewFieldValue = row.Field<string>(field).ToString();
+
+                            docfields.SetField(f.Field, f.CapsValue ? NewFieldValue.ToUpper() : NewFieldValue);
+                        }
+                        else
+                        {
+                            docfields.SetField(f.Field, f.CapsValue ? f.Value.ToUpper() : f.Value);
+                        }
+
+                    }
+                }
+
+
+                pdfStamper.Close();
+                pdfReader.Close();
+
+                FileInfo fi = new FileInfo(FilePath);
+                string ImagePath = Path.Combine(fi.Directory.FullName, Path.GetFileNameWithoutExtension(fi.Name) + ".jpg").ToString();
+                row["PhotoFilePathColumn"] = ImagePath;
+                byte[] pdfbytearray = File.ReadAllBytes(FilePath);
+                string pdfstring = Convert.ToBase64String(pdfbytearray, 0, pdfbytearray.Length);
+
+                PDFtoImage.Conversion.SaveJpeg(ImagePath, pdfstring);
+                PDFViewerPicture.ImageLocation = ImagePath;
+            }
+        }
+
+        private void LoadPDFFields()
+        {
+            FileInfo CertFile = new FileInfo(CertTemplateTextBox.Text);
+            if (!CertFile.Exists)
+            {
+                MessageBox.Show("Sorry your template not exist or you do not have access to it");
+                return;
+            }
+
+
+            PdfReader pdfReader = new PdfReader(CertFile.FullName);
+            AcroFields docfields = pdfReader.AcroFields;
+            ICollection<string> FieldKeys = docfields.Fields.Keys;
+            ValidPDFFile = ValidatePDFFile(CertFile.FullName);
+            if (ValidPDFFile)
+            {
+                FieldManagementForm.PDFFieldValueBindingSource.Clear();
+                foreach (var k in FieldKeys)
+                {
+                    var val = new PDFFieldValue();
+                    val.Field = k;
+                    FieldManagementForm.PDFFieldValueBindingSource.Add(val);
+                }
+            }
+
+        }
+
         private void PreviewPDF()
         {
             var row = ((DataRowView)UserListBox.SelectedItem).Row;
@@ -431,9 +431,133 @@ namespace CertMaker5000
             WritePDF(FilePath, row);
         }
 
+        #endregion Main Methods
+
+        #region Events
+        private void FieldManagerLabel_Click(object sender, EventArgs e)
+        {
+            FieldManagementForm.Show();
+        }
+
+        private void LoadPdfButton_Click(object sender, EventArgs e)
+        {
+            PreviewPDF();
+            PreviewTabControl.SelectedTab = PDFPreviewTab;
+        }
+
+        private void OpenPDFTemplateDialogButton_Click(object sender, EventArgs e)
+        {
+            DialogResult? result = null;
+            if (!String.IsNullOrEmpty(CertTemplateTextBox.Text))
+            {
+                result = WarningOfResetFields("PDF");
+            }
+            if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "PDF Files|*.pdf";
+            ofd.Multiselect = false;
+            ofd.CheckFileExists = true;
+            ofd.CheckPathExists = true;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                if (result != null && result == DialogResult.OK)
+                {
+                    FieldManagementForm.PDFFieldValueBindingSource.Clear();
+                }
+                CertTemplateTextBox.Text = ofd.FileName;
+                LoadPDFFields();
+            }
+
+        }
+
+        private void OpenCertDropDialogButton_Click(object sender, EventArgs e)
+        {
+            CommonOpenFileDialog cofd = new CommonOpenFileDialog();
+            cofd.IsFolderPicker = true;
+            if (cofd.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                CertDropTextBox.Text = cofd.FileName;
+            }
+        }
+
         private void UserListBox_DoubleClick(object sender, EventArgs e)
         {
             PreviewPDF();
+            UpdatePreviewEmailBody();
         }
+
+        private void OpenCsvFileDialogButton_Click(object sender, EventArgs e)
+        {
+            if (!ValidPDFFile)
+            {
+                MessageBox.Show("Sorry, but you must first select a PDF file so we can load it's fields.");
+                return;
+            }
+            DialogResult? result = null;
+            if (!String.IsNullOrEmpty(CertTemplateTextBox.Text))
+            {
+                result = WarningOfResetFields("CSV");
+            }
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Delimited (Comma,Tab,Pipe)|*.csv;*.txt";
+            ofd.Multiselect = false;
+            ofd.CheckFileExists = true;
+            ofd.CheckPathExists = true;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                if (result != null && result == DialogResult.OK)
+                {
+                    foreach (PDFFieldValue f in FieldManagementForm.PDFFieldValueBindingSource)
+                    {
+                        f.Value = null!;
+                    }
+                }
+                UserCSVFileTextBox.Text = ofd.FileName;
+                ValidCSVFile = ValidateCSVFile(ofd.FileName);
+                CheckValidation();
+                VariablesAllowedListBox.DataSource = FieldManagementForm.CSVFieldsBindingSource;
+                FieldManagementForm.Show();
+                //VariablesAllowedListBox.DisplayMember = "Display";
+                //VariablesAllowedListBox.ValueMember = "Value";
+            }
+        }
+
+        private void GenerateAndEmailButton_Click(object sender, EventArgs e)
+        {
+            if (!CheckIfTableIsEmptyAndRespond()) { return; }
+            var result = MessageBox.Show($"Are you sure you want to generate and send {CSVDataTable.Rows.Count} E-Mails?", "E-Mail Confirmation", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                MessageBox.Show("Ok Generating");
+            }
+        }
+
+        private void GenerateNowButton_Click(object sender, EventArgs e)
+        {
+            if (!CheckIfTableIsEmptyAndRespond()) { return; }
+        }
+
+        private void HTMLBodyEditTextBox_TextChanged(object sender, EventArgs e)
+        {
+            UpdatePreviewEmailBody();
+        }
+
+        private void VariablesAllowedListBox_DoubleClick(object sender, EventArgs e)
+        {
+            string item = "";
+            if (VariablesAllowedListBox.SelectedItems.Count > 0)
+            {
+                item = VariablesAllowedListBox.SelectedItems[0].ToString()!;
+            }
+            HTMLBodyEditTextBox.Text = HTMLBodyEditTextBox.Text.Insert(HTMLBodyEditTextBox.SelectionStart, item);
+        }
+
+        #endregion Events
+
     }
 }

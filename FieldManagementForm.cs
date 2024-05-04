@@ -36,6 +36,7 @@ namespace CertMaker5000
                 EditRow = (PDFFieldValue)FieldsDataGrid.SelectedRows[0].DataBoundItem;
                 PDFFieldTextBox.Text = EditRow.Field;
                 CSVFieldsCombo.Text = EditRow.Value;
+                CapsCheckBox.Checked = EditRow.CapsValue;
 
                 IsEditing = true;
                 AddEditButtonTextChange();
@@ -43,7 +44,11 @@ namespace CertMaker5000
         }
         private void AddEditButtonTextChange()
         {
-            AddEditFieldButton.Text = IsEditing ? "Save" : "Add";
+            AddEditFieldButton.Visible = IsEditing;
+            CapsCheckBox.Visible = IsEditing;
+            CSVFieldsCombo.Visible = IsEditing;
+            PDFFieldTextBox.Visible = IsEditing;
+            //AddEditFieldButton.Text = IsEditing ? "Save" : "Add";
         }
 
         private void FieldManagementForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -86,6 +91,7 @@ namespace CertMaker5000
             }
             row.Field = PDFFieldTextBox.Text;
             row.Value = CSVFieldsCombo.Text;
+            row.CapsValue = CapsCheckBox.Checked;
             FieldsDataGrid.Refresh();
             IsEditing = false;
             ClearForm();
@@ -97,6 +103,7 @@ namespace CertMaker5000
         {
             PDFFieldTextBox.Text = String.Empty;
             CSVFieldsCombo.Text = String.Empty;
+            CapsCheckBox.Checked = false;
         }
 
         private void FieldsDataGrid_DataSourceChanged(object sender, EventArgs e)
@@ -119,6 +126,7 @@ namespace CertMaker5000
         }
         public string Field { get; set; }
         public string Value { get; set; }
+        public bool CapsValue { get; set; } = false;
         public string Display { get { return Field + "( " + Value + " )"; } }
     }
 }

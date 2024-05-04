@@ -118,8 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label3.Text" xml:space="preserve">
-    <value>To edit the valus of the PDF Variables. Double Click on the selector column (var left column) for which variable you want to change.Then update the Field Value CheckBox.
-
-If you want to add your own custom variable for E-Mail Body. Simply make sure that the button at the top says "Add". Fill in the PDF Field on the left. Then on the right Fill in the value then click "Add"</value>
+    <value>To edit the valus of the PDF Variables.  Double Click on the selector column (var left column) for which variable you want to change.
+Then update the Field Value CheckBox (2 Options)
+1. Write in Custom Value
+2. Select field from CSV from drop down
+</value>
   </data>
 </root>

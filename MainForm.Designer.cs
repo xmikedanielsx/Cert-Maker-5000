@@ -48,6 +48,8 @@
             VariablesAllowedListBox = new ListBox();
             HTMLBodyPreviewTextBox = new TextBox();
             HTMLBodyEditTextBox = new TextBox();
+            GenerateNowButton = new Button();
+            GenerateAndEmailButton = new Button();
             ((System.ComponentModel.ISupportInitialize)PDFViewerPicture).BeginInit();
             PreviewTabControl.SuspendLayout();
             PDFPreviewTab.SuspendLayout();
@@ -56,11 +58,11 @@
             // 
             // CertTemplateTextBox
             // 
+            CertTemplateTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             CertTemplateTextBox.Location = new Point(131, 38);
             CertTemplateTextBox.Name = "CertTemplateTextBox";
             CertTemplateTextBox.Size = new Size(818, 23);
             CertTemplateTextBox.TabIndex = 0;
-            CertTemplateTextBox.Text = "C:\\Users\\Owner\\Downloads\\CertTemplateExample.pdf";
             // 
             // label1
             // 
@@ -82,14 +84,15 @@
             // 
             // UserCSVFileTextBox
             // 
+            UserCSVFileTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             UserCSVFileTextBox.Location = new Point(131, 88);
             UserCSVFileTextBox.Name = "UserCSVFileTextBox";
             UserCSVFileTextBox.Size = new Size(818, 23);
             UserCSVFileTextBox.TabIndex = 2;
-            UserCSVFileTextBox.Text = "C:\\Users\\Owner\\Downloads\\UserCSVFile.csv";
             // 
             // OpenPDFTemplateDialogButton
             // 
+            OpenPDFTemplateDialogButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             OpenPDFTemplateDialogButton.Location = new Point(955, 34);
             OpenPDFTemplateDialogButton.Name = "OpenPDFTemplateDialogButton";
             OpenPDFTemplateDialogButton.Size = new Size(32, 23);
@@ -100,6 +103,7 @@
             // 
             // OpenCsvFileDialogButton
             // 
+            OpenCsvFileDialogButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             OpenCsvFileDialogButton.Location = new Point(955, 83);
             OpenCsvFileDialogButton.Name = "OpenCsvFileDialogButton";
             OpenCsvFileDialogButton.Size = new Size(32, 23);
@@ -110,6 +114,7 @@
             // 
             // OpenCertDropDialogButton
             // 
+            OpenCertDropDialogButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             OpenCertDropDialogButton.Location = new Point(955, 147);
             OpenCertDropDialogButton.Name = "OpenCertDropDialogButton";
             OpenCertDropDialogButton.Size = new Size(32, 23);
@@ -129,14 +134,15 @@
             // 
             // CertDropTextBox
             // 
+            CertDropTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             CertDropTextBox.Location = new Point(131, 152);
             CertDropTextBox.Name = "CertDropTextBox";
             CertDropTextBox.Size = new Size(818, 23);
             CertDropTextBox.TabIndex = 6;
-            CertDropTextBox.Text = "C:\\Users\\Owner\\Downloads\\DropCerts";
             // 
             // FieldManagerLabel
             // 
+            FieldManagerLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             FieldManagerLabel.AutoSize = true;
             FieldManagerLabel.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point);
             FieldManagerLabel.ForeColor = Color.Blue;
@@ -145,16 +151,19 @@
             FieldManagerLabel.Size = new Size(82, 15);
             FieldManagerLabel.TabIndex = 9;
             FieldManagerLabel.Text = "Field Manager";
+            FieldManagerLabel.Visible = false;
             FieldManagerLabel.Click += FieldManagerLabel_Click;
             // 
             // LoadPdfButton
             // 
-            LoadPdfButton.Location = new Point(774, 187);
+            LoadPdfButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            LoadPdfButton.Location = new Point(892, 187);
             LoadPdfButton.Name = "LoadPdfButton";
             LoadPdfButton.Size = new Size(93, 23);
             LoadPdfButton.TabIndex = 10;
             LoadPdfButton.Text = "Preview PDF";
             LoadPdfButton.UseVisualStyleBackColor = true;
+            LoadPdfButton.Visible = false;
             LoadPdfButton.Click += LoadPdfButton_Click;
             // 
             // UserListBox
@@ -162,9 +171,9 @@
             UserListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             UserListBox.FormattingEnabled = true;
             UserListBox.ItemHeight = 15;
-            UserListBox.Location = new Point(993, 33);
+            UserListBox.Location = new Point(993, 63);
             UserListBox.Name = "UserListBox";
-            UserListBox.Size = new Size(334, 694);
+            UserListBox.Size = new Size(334, 664);
             UserListBox.TabIndex = 12;
             UserListBox.DoubleClick += UserListBox_DoubleClick;
             // 
@@ -180,15 +189,18 @@
             // 
             // PreviewEmailButton
             // 
-            PreviewEmailButton.Location = new Point(892, 187);
+            PreviewEmailButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PreviewEmailButton.Location = new Point(765, 187);
             PreviewEmailButton.Name = "PreviewEmailButton";
             PreviewEmailButton.Size = new Size(93, 23);
             PreviewEmailButton.TabIndex = 14;
             PreviewEmailButton.Text = "Preview Email";
             PreviewEmailButton.UseVisualStyleBackColor = true;
+            PreviewEmailButton.Visible = false;
             // 
             // PreviewTabControl
             // 
+            PreviewTabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             PreviewTabControl.Controls.Add(PDFPreviewTab);
             PreviewTabControl.Controls.Add(EmailBodyTab);
             PreviewTabControl.Location = new Point(18, 193);
@@ -230,6 +242,7 @@
             VariablesAllowedListBox.Name = "VariablesAllowedListBox";
             VariablesAllowedListBox.Size = new Size(214, 499);
             VariablesAllowedListBox.TabIndex = 17;
+            VariablesAllowedListBox.DoubleClick += VariablesAllowedListBox_DoubleClick;
             // 
             // HTMLBodyPreviewTextBox
             // 
@@ -247,12 +260,39 @@
             HTMLBodyEditTextBox.Name = "HTMLBodyEditTextBox";
             HTMLBodyEditTextBox.Size = new Size(729, 249);
             HTMLBodyEditTextBox.TabIndex = 0;
+            HTMLBodyEditTextBox.TextChanged += HTMLBodyEditTextBox_TextChanged;
+            // 
+            // GenerateNowButton
+            // 
+            GenerateNowButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            GenerateNowButton.Location = new Point(993, 34);
+            GenerateNowButton.Name = "GenerateNowButton";
+            GenerateNowButton.Size = new Size(121, 23);
+            GenerateNowButton.TabIndex = 17;
+            GenerateNowButton.Text = "Generate Now";
+            GenerateNowButton.UseVisualStyleBackColor = true;
+            GenerateNowButton.Visible = false;
+            GenerateNowButton.Click += GenerateNowButton_Click;
+            // 
+            // GenerateAndEmailButton
+            // 
+            GenerateAndEmailButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            GenerateAndEmailButton.Location = new Point(1166, 38);
+            GenerateAndEmailButton.Name = "GenerateAndEmailButton";
+            GenerateAndEmailButton.Size = new Size(161, 23);
+            GenerateAndEmailButton.TabIndex = 18;
+            GenerateAndEmailButton.Text = "Generate and Email";
+            GenerateAndEmailButton.UseVisualStyleBackColor = true;
+            GenerateAndEmailButton.Visible = false;
+            GenerateAndEmailButton.Click += GenerateAndEmailButton_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1339, 739);
+            Controls.Add(GenerateAndEmailButton);
+            Controls.Add(GenerateNowButton);
             Controls.Add(PreviewEmailButton);
             Controls.Add(LoadPdfButton);
             Controls.Add(PreviewTabControl);
@@ -300,5 +340,7 @@
         private TextBox HTMLBodyPreviewTextBox;
         private TextBox HTMLBodyEditTextBox;
         private ListBox VariablesAllowedListBox;
+        private Button GenerateNowButton;
+        private Button GenerateAndEmailButton;
     }
 }

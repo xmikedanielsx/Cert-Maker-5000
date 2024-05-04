@@ -6,7 +6,20 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>Certificate.ico</ApplicationIcon>
+    <PackageIcon>7238706.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Certificate.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Owner\Downloads\7238706.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="32.0.1" />

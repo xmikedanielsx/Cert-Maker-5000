@@ -139,6 +139,7 @@
             Controls.Add(label1);
             Controls.Add(PDFFieldTextBox);
             Controls.Add(FieldsDataGrid);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FieldManagementForm";

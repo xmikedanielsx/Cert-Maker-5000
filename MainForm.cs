@@ -24,6 +24,7 @@ namespace CertMaker5000
         {
             InitializeComponent();
         }
+        List<ControlState> ControlStates = new();
 
         #region Helper Methods
         public static int CountBools(params bool[] args)
@@ -318,6 +319,16 @@ namespace CertMaker5000
             HTMLBodyPreviewTextBox.Text = NewText;
         }
 
+        private string GeneratePathForPDF(DataRow row)
+        {
+            string FileName = CSVDataTable.Rows.IndexOf(row).ToString().PadLeft(10, '0') + " " + UserListBox.SelectedValue.ToString() + ".pdf";
+            return Path.Combine(CertDropTextBox.Text, ReplaceInvalidChars(FileName));
+        }
+        public string ReplaceInvalidChars(string filename)
+        {
+            return string.Join("", filename.Split(Path.GetInvalidFileNameChars()));
+        }
+
         #endregion Helper Methods
 
         #region Main Methods
@@ -427,7 +438,7 @@ namespace CertMaker5000
         private void PreviewPDF()
         {
             var row = ((DataRowView)UserListBox.SelectedItem).Row;
-            string FilePath = Path.Combine(CertDropTextBox.Text, CSVDataTable.Rows.IndexOf(row).ToString().PadLeft(10, '0') + " " + UserListBox.SelectedValue.ToString() + ".pdf");
+            string FilePath = GeneratePathForPDF(row);
             WritePDF(FilePath, row);
         }
 
@@ -539,7 +550,37 @@ namespace CertMaker5000
 
         private void GenerateNowButton_Click(object sender, EventArgs e)
         {
+            DisableEnableAllControlsWhileProcessing();
             if (!CheckIfTableIsEmptyAndRespond()) { return; }
+            try 
+            {
+                foreach (DataRow row in CSVDataTable.Rows)
+                {
+                    WritePDF(GeneratePathForPDF(row), row);
+                }
+                MessageBox.Show($"Certs have been generated and dropped in your cert folder{Environment.NewLine}{CertDropTextBox.Text}");
+            } catch( Exception ex)
+            {
+                
+            }
+            DisableEnableAllControlsWhileProcessing();
+        }
+
+        private void DisableEnableAllControlsWhileProcessing()
+        {
+            if(ControlStates.Count == 0)
+            {
+                foreach (Control c in this.Controls)
+                {
+                    ControlStates.Add(new ControlState() { Control = c, State = c.Enabled });
+                }
+            }
+
+            foreach (Control c in this.Controls)
+            {
+                c.Enabled = !c.Enabled;
+            }
+
         }
 
         private void HTMLBodyEditTextBox_TextChanged(object sender, EventArgs e)
@@ -559,5 +600,10 @@ namespace CertMaker5000
 
         #endregion Events
 
+    }
+    public class ControlState 
+    { 
+        public Control Control { get; set; }
+        public bool State { get; set; }
     }
 }

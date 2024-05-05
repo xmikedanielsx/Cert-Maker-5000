@@ -8,6 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Certificate.ico</ApplicationIcon>
     <PackageIcon>7238706.png</PackageIcon>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>

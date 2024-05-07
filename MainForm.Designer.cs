@@ -50,6 +50,8 @@
             HTMLBodyEditTextBox = new TextBox();
             GenerateNowButton = new Button();
             GenerateAndEmailButton = new Button();
+            label4 = new Label();
+            ThemeCombo = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)PDFViewerPicture).BeginInit();
             PreviewTabControl.SuspendLayout();
             PDFPreviewTab.SuspendLayout();
@@ -59,7 +61,7 @@
             // CertTemplateTextBox
             // 
             CertTemplateTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            CertTemplateTextBox.Location = new Point(131, 38);
+            CertTemplateTextBox.Location = new Point(131, 57);
             CertTemplateTextBox.Name = "CertTemplateTextBox";
             CertTemplateTextBox.Size = new Size(818, 23);
             CertTemplateTextBox.TabIndex = 0;
@@ -67,7 +69,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(45, 46);
+            label1.Location = new Point(45, 65);
             label1.Name = "label1";
             label1.Size = new Size(80, 15);
             label1.TabIndex = 1;
@@ -76,7 +78,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(50, 96);
+            label2.Location = new Point(50, 104);
             label2.Name = "label2";
             label2.Size = new Size(75, 15);
             label2.TabIndex = 3;
@@ -85,7 +87,7 @@
             // UserCSVFileTextBox
             // 
             UserCSVFileTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            UserCSVFileTextBox.Location = new Point(131, 88);
+            UserCSVFileTextBox.Location = new Point(131, 96);
             UserCSVFileTextBox.Name = "UserCSVFileTextBox";
             UserCSVFileTextBox.Size = new Size(818, 23);
             UserCSVFileTextBox.TabIndex = 2;
@@ -93,7 +95,7 @@
             // OpenPDFTemplateDialogButton
             // 
             OpenPDFTemplateDialogButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            OpenPDFTemplateDialogButton.Location = new Point(955, 34);
+            OpenPDFTemplateDialogButton.Location = new Point(955, 53);
             OpenPDFTemplateDialogButton.Name = "OpenPDFTemplateDialogButton";
             OpenPDFTemplateDialogButton.Size = new Size(32, 23);
             OpenPDFTemplateDialogButton.TabIndex = 4;
@@ -104,7 +106,7 @@
             // OpenCsvFileDialogButton
             // 
             OpenCsvFileDialogButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            OpenCsvFileDialogButton.Location = new Point(955, 83);
+            OpenCsvFileDialogButton.Location = new Point(955, 91);
             OpenCsvFileDialogButton.Name = "OpenCsvFileDialogButton";
             OpenCsvFileDialogButton.Size = new Size(32, 23);
             OpenCsvFileDialogButton.TabIndex = 5;
@@ -203,11 +205,12 @@
             PreviewTabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             PreviewTabControl.Controls.Add(PDFPreviewTab);
             PreviewTabControl.Controls.Add(EmailBodyTab);
-            PreviewTabControl.Location = new Point(18, 193);
+            PreviewTabControl.Location = new Point(18, 188);
             PreviewTabControl.Name = "PreviewTabControl";
             PreviewTabControl.SelectedIndex = 0;
             PreviewTabControl.Size = new Size(969, 539);
             PreviewTabControl.TabIndex = 16;
+            PreviewTabControl.DrawItem += ControlTabColor;
             // 
             // PDFPreviewTab
             // 
@@ -286,11 +289,31 @@
             GenerateAndEmailButton.Visible = false;
             GenerateAndEmailButton.Click += GenerateAndEmailButton_Click;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(818, 15);
+            label4.Name = "label4";
+            label4.Size = new Size(43, 15);
+            label4.TabIndex = 19;
+            label4.Text = "Theme";
+            // 
+            // ThemeCombo
+            // 
+            ThemeCombo.FormattingEnabled = true;
+            ThemeCombo.Location = new Point(867, 12);
+            ThemeCombo.Name = "ThemeCombo";
+            ThemeCombo.Size = new Size(120, 23);
+            ThemeCombo.TabIndex = 20;
+            ThemeCombo.SelectedIndexChanged += ThemeCombo_SelectedIndexChanged;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1339, 739);
+            Controls.Add(ThemeCombo);
+            Controls.Add(label4);
             Controls.Add(GenerateAndEmailButton);
             Controls.Add(GenerateNowButton);
             Controls.Add(PreviewEmailButton);
@@ -342,5 +365,7 @@
         private ListBox VariablesAllowedListBox;
         private Button GenerateNowButton;
         private Button GenerateAndEmailButton;
+        private Label label4;
+        private ComboBox ThemeCombo;
     }
 }

@@ -7,7 +7,9 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+
 
 namespace CertMaker5000
 {
@@ -20,13 +22,67 @@ namespace CertMaker5000
         string ValidCSVFilePath = "";
         string EmailBody = "";
         DataTable CSVDataTable = new DataTable();
+        ListBox DefaultControlListbox = new();
+        TextBox DefaultControlTextBox = new();
+        TabPage DefaultControlTabPage = new();
+        Form DefaultControlForm = new Form();
+
+
+        Color BackgroundColor = HelperClasses.GetSystemColor();
+        Color ForegroundColor = HelperClasses.GetSystemFontColor();
+        private Dictionary<TabPage, Color> TabColors = new Dictionary<TabPage, Color>();
+        bool DarkTheme = HelperClasses.GetWindowsColorMode();
+        List<InitialColorsListItem> InitialColorsList = new();
+
         public MainForm()
         {
             InitializeComponent();
+            SetInitialTheme();
+            //SetThemeColors();
         }
-        List<ControlState> ControlStates = new();
 
         #region Helper Methods
+
+        private void SetInitialTheme()
+        {
+            foreach(Control c in this.Controls)
+            {
+                InitialColorsList.Add(new InitialColorsListItem() { Control = c, BackColor = c.BackColor, ForeColor = c.ForeColor });
+            }
+            foreach (TabPage page in PreviewTabControl.TabPages)
+            {
+                InitialColorsList.Add(new InitialColorsListItem() { Control = page, BackColor = page.BackColor, ForeColor = page.ForeColor });
+                foreach (Control c in page.Controls) 
+                {
+                    InitialColorsList.Add(new InitialColorsListItem() { Control = c, BackColor = c.BackColor, ForeColor = c.ForeColor });
+                }
+            }
+            InitialColorsList.Add(new InitialColorsListItem() { Control = DefaultControlForm, BackColor = DefaultControlForm.BackColor, ForeColor = DefaultControlForm.ForeColor });
+            ThemeCombo.Items.Add("Light");
+            ThemeCombo.Items.Add("Dark");
+            ThemeCombo.SelectedIndex = DarkTheme ? 1 : 0;
+        }
+        private void SetThemeColors()
+        {
+            BackgroundColor = HelperClasses.GetSystemColor(DarkTheme);
+            ForegroundColor = HelperClasses.GetSystemFontColor(DarkTheme);
+
+            this.BackColor = DarkTheme ? BackgroundColor : InitialColorsList.Where(f => f.Control == DefaultControlForm).First().BackColor;
+            this.ForeColor = DarkTheme ? BackgroundColor : InitialColorsList.Where(f => f.Control == DefaultControlForm).First().ForeColor;
+
+            foreach (InitialColorsListItem c in InitialColorsList)
+            {
+                c.Control.BackColor = DarkTheme ? BackgroundColor : c.BackColor;
+                c.Control.ForeColor = DarkTheme ? ForegroundColor : c.ForeColor;
+                if(c.Control == HTMLBodyPreviewTextBox && DarkTheme)
+                {
+                    c.Control.BackColor = HelperClasses.GetSystemColorFromHex("#2f2f2f");
+                    c.Control.ForeColor = HelperClasses.GetSystemColorFromHex("#FFFFFF");
+                }
+            }
+
+        }
+
         public static int CountBools(params bool[] args)
         {
             return args.Count(t => !t);
@@ -329,6 +385,16 @@ namespace CertMaker5000
             return string.Join("", filename.Split(Path.GetInvalidFileNameChars()));
         }
 
+        private void ControlTabColor(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+
+            //Color tabTextColor = Color.FromArgb(0x000001);
+            Color tabTextColor = HelperClasses.GetSystemColorFromHex("#FF0000");
+            var color = Color.FromArgb(tabTextColor.R, tabTextColor.G, tabTextColor.B);
+            TextRenderer.DrawText(e.Graphics, PreviewTabControl.TabPages[e.Index].Text, e.Font, e.Bounds, color);
+        }
+
         #endregion Helper Methods
 
         #region Main Methods
@@ -552,30 +618,23 @@ namespace CertMaker5000
         {
             DisableEnableAllControlsWhileProcessing();
             if (!CheckIfTableIsEmptyAndRespond()) { return; }
-            try 
+            try
             {
                 foreach (DataRow row in CSVDataTable.Rows)
                 {
                     WritePDF(GeneratePathForPDF(row), row);
                 }
                 MessageBox.Show($"Certs have been generated and dropped in your cert folder{Environment.NewLine}{CertDropTextBox.Text}");
-            } catch( Exception ex)
+            }
+            catch (Exception ex)
             {
-                
+
             }
             DisableEnableAllControlsWhileProcessing();
         }
 
         private void DisableEnableAllControlsWhileProcessing()
         {
-            if(ControlStates.Count == 0)
-            {
-                foreach (Control c in this.Controls)
-                {
-                    ControlStates.Add(new ControlState() { Control = c, State = c.Enabled });
-                }
-            }
-
             foreach (Control c in this.Controls)
             {
                 c.Enabled = !c.Enabled;
@@ -600,10 +659,24 @@ namespace CertMaker5000
 
         #endregion Events
 
+        private void ThemeCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ThemeCombo.Text == "Light")
+            {
+                DarkTheme = false;
+            } else
+            {
+                DarkTheme = true;
+            }
+            SetThemeColors();
+        }
     }
-    public class ControlState 
-    { 
-        public Control Control { get; set; }
-        public bool State { get; set; }
+
+    public class InitialColorsListItem
+    {
+        public Control Control { get; set; } 
+        public Color BackColor { get; set; }
+        public Color ForeColor { get; set; } 
     }
+
 }

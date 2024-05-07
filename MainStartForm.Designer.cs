@@ -127,7 +127,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(30, 30, 30);
+            
             ClientSize = new Size(817, 542);
             ControlBox = false;
             Controls.Add(CreateDatabaseButton);
@@ -138,7 +138,7 @@
             Controls.Add(DatabaseTypeCombo);
             Controls.Add(label2);
             Controls.Add(label1);
-            ForeColor = Color.FromArgb(204, 204, 204);
+            
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;

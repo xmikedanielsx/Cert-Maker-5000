@@ -20,6 +20,8 @@ namespace CertMaker5000
         public MainStartForm()
         {
             InitializeComponent();
+            BackColor = HelperClasses.GetSystemColor();
+            ForeColor = HelperClasses.GetSystemFontColor();
             this.CenterToScreen();
             LoadDBTypesAsDeployed();
         }

@@ -21,9 +21,9 @@ namespace CertMaker5000
         }
         /// <summary>This Returns a <see cref="System.Drawing.Color"/> Based on Ssytem Theme Setings</summary>
         /// <returns>System.Drawing.Color</returns>
-        public static Color GetSystemColor()
+        public static Color GetSystemColor(bool IsDarkModeOverride = true)
         {
-            if (GetWindowsColorMode())
+            if (GetWindowsColorMode() && IsDarkModeOverride == true)
             {
                 return GetSystemColorFromHex("#1e1e1e");
             }
@@ -36,10 +36,10 @@ namespace CertMaker5000
         /// This returns a <see cref="System.Drawing.Color"/> for the Font Color to be used based on system settings.
         /// </summary>
         /// <returns></returns>
-        public static Color GetSystemFontColor()
+        public static Color GetSystemFontColor(bool IsDarkModeOverride = true)
         {
             // Dark mode
-            if (GetWindowsColorMode())
+            if (GetWindowsColorMode() && IsDarkModeOverride == true)
             {
                 return GetSystemColorFromHex("#CCCCCC");
             } 

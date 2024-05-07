@@ -1,31 +1,37 @@
 ﻿namespace CertMaker5000
 {
-    public partial class DatabaseSqliteForm : Form
+    public partial class DatabaseMSSQLForm : Form
     {
-        public DatabaseSqliteForm()
+        public DatabaseMSSQLForm()
         {
             InitializeComponent();
             this.CenterToScreen();
             SetThemeSettings();
+            InsideSplitContainer.Panel1Collapsed = true;
         }
+
         private void SetThemeSettings()
         {
             this.BackColor = HelperClasses.GetSystemColor();
             this.ForeColor = HelperClasses.GetSystemFontColor();
         }
 
-
         private void CancelButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void BrowseDatabaseButton_Click(object sender, EventArgs e)
+        private void WindowsAuthCheck_CheckedChanged(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "SqLite Databases|*.sqlite";
-            ofd.Multiselect = false;
-
+            if (WindowsAuthCheck.Checked == true)
+            {
+                InsideSplitContainer.Panel1Collapsed = true;
+            }
+            else
+            {
+                InsideSplitContainer.Panel1Collapsed = false;
+            }
         }
+
     }
 }

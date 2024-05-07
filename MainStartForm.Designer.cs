@@ -43,43 +43,45 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(12, 9);
+            label1.Location = new Point(14, 12);
             label1.Name = "label1";
-            label1.Size = new Size(149, 28);
+            label1.Size = new Size(189, 35);
             label1.TabIndex = 0;
             label1.Text = "Database Setup";
             // 
             // label2
             // 
-            label2.Location = new Point(12, 44);
+            label2.Location = new Point(14, 59);
             label2.Name = "label2";
-            label2.Size = new Size(776, 49);
+            label2.Size = new Size(887, 65);
             label2.TabIndex = 1;
             label2.Text = resources.GetString("label2.Text");
             // 
             // DatabaseTypeCombo
             // 
             DatabaseTypeCombo.FormattingEnabled = true;
-            DatabaseTypeCombo.Location = new Point(138, 121);
+            DatabaseTypeCombo.Location = new Point(158, 161);
+            DatabaseTypeCombo.Margin = new Padding(3, 4, 3, 4);
             DatabaseTypeCombo.Name = "DatabaseTypeCombo";
-            DatabaseTypeCombo.Size = new Size(650, 23);
+            DatabaseTypeCombo.Size = new Size(742, 28);
             DatabaseTypeCombo.TabIndex = 2;
             DatabaseTypeCombo.SelectedIndexChanged += DatabaseTypeCombo_SelectedIndexChanged;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 124);
+            label3.Location = new Point(14, 165);
             label3.Name = "label3";
-            label3.Size = new Size(82, 15);
+            label3.Size = new Size(107, 20);
             label3.TabIndex = 3;
             label3.Text = "Database Type";
             // 
             // DatabaseTypeDisplayPanel
             // 
-            DatabaseTypeDisplayPanel.Location = new Point(12, 162);
+            DatabaseTypeDisplayPanel.Location = new Point(14, 216);
+            DatabaseTypeDisplayPanel.Margin = new Padding(3, 4, 3, 4);
             DatabaseTypeDisplayPanel.Name = "DatabaseTypeDisplayPanel";
-            DatabaseTypeDisplayPanel.Size = new Size(776, 303);
+            DatabaseTypeDisplayPanel.Size = new Size(887, 404);
             DatabaseTypeDisplayPanel.TabIndex = 4;
             // 
             // OpenDatabaseButton
@@ -87,11 +89,12 @@
             OpenDatabaseButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             OpenDatabaseButton.BackColor = SystemColors.Control;
             OpenDatabaseButton.ForeColor = SystemColors.ControlText;
-            OpenDatabaseButton.Location = new Point(361, 480);
+            OpenDatabaseButton.Location = new Point(413, 640);
+            OpenDatabaseButton.Margin = new Padding(3, 4, 3, 4);
             OpenDatabaseButton.Name = "OpenDatabaseButton";
-            OpenDatabaseButton.Size = new Size(100, 32);
+            OpenDatabaseButton.Size = new Size(114, 43);
             OpenDatabaseButton.TabIndex = 11;
-            OpenDatabaseButton.Text = "Open Database";
+            OpenDatabaseButton.Text = "Open DB";
             OpenDatabaseButton.UseVisualStyleBackColor = false;
             OpenDatabaseButton.Visible = false;
             // 
@@ -101,9 +104,10 @@
             CancelButton.BackColor = Color.RosyBrown;
             CancelButton.FlatStyle = FlatStyle.Flat;
             CancelButton.ForeColor = SystemColors.ControlText;
-            CancelButton.Location = new Point(12, 480);
+            CancelButton.Location = new Point(14, 640);
+            CancelButton.Margin = new Padding(3, 4, 3, 4);
             CancelButton.Name = "CancelButton";
-            CancelButton.Size = new Size(101, 32);
+            CancelButton.Size = new Size(115, 43);
             CancelButton.TabIndex = 13;
             CancelButton.Text = "Cancel";
             CancelButton.UseVisualStyleBackColor = false;
@@ -115,20 +119,20 @@
             CreateDatabaseButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CreateDatabaseButton.BackColor = SystemColors.Control;
             CreateDatabaseButton.ForeColor = SystemColors.ControlText;
-            CreateDatabaseButton.Location = new Point(688, 480);
+            CreateDatabaseButton.Location = new Point(786, 640);
+            CreateDatabaseButton.Margin = new Padding(3, 4, 3, 4);
             CreateDatabaseButton.Name = "CreateDatabaseButton";
-            CreateDatabaseButton.Size = new Size(100, 32);
+            CreateDatabaseButton.Size = new Size(114, 43);
             CreateDatabaseButton.TabIndex = 14;
-            CreateDatabaseButton.Text = "Create Database";
+            CreateDatabaseButton.Text = "Create DB";
             CreateDatabaseButton.UseVisualStyleBackColor = false;
             CreateDatabaseButton.Visible = false;
             // 
             // MainStartForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            
-            ClientSize = new Size(817, 542);
+            ClientSize = new Size(934, 723);
             ControlBox = false;
             Controls.Add(CreateDatabaseButton);
             Controls.Add(CancelButton);
@@ -138,8 +142,8 @@
             Controls.Add(DatabaseTypeCombo);
             Controls.Add(label2);
             Controls.Add(label1);
-            
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MainStartForm";

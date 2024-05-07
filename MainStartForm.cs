@@ -11,7 +11,15 @@ namespace CertMaker5000
         {
             Name = "SqLite",
             Control = new DatabaseSqliteForm()
-            { 
+            {
+                TopLevel = false
+            }
+        };
+        DatabasesSupportedListItem DatabaseMSSQLItem = new DatabasesSupportedListItem()
+        {
+            Name = "MSSQL",
+            Control = new DatabaseMSSQLForm()
+            {
                 TopLevel = false
             }
         };
@@ -35,9 +43,10 @@ namespace CertMaker5000
             PostgreSQL
             MySQL/MariaDB
             */
-            DatabaseTypesSupported = new List<DatabasesSupportedListItem>(new[] 
-            { 
-                DatabaseSqliteItem 
+            DatabaseTypesSupported = new List<DatabasesSupportedListItem>(new[]
+            {
+                DatabaseSqliteItem,
+                DatabaseMSSQLItem,
             });
 
             DatabaseTypeCombo.DataSource = DatabaseTypesSupported;
@@ -45,7 +54,7 @@ namespace CertMaker5000
             DatabaseTypeCombo.ValueMember = "Name";
             DatabaseTypeCombo.Refresh();
 
-            foreach(var item in (List< DatabasesSupportedListItem >)DatabaseTypeCombo.DataSource)
+            foreach (var item in (List<DatabasesSupportedListItem>)DatabaseTypeCombo.DataSource)
             {
                 item.Control.Dock = DockStyle.Fill;
                 DatabaseTypeDisplayPanel.Controls.Add(item.Control);
@@ -60,7 +69,7 @@ namespace CertMaker5000
         private void DatabaseTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             DatabasesSupportedListItem item = ((DatabasesSupportedListItem)DatabaseTypeCombo.SelectedItem);
-            if(item != null)
+            if (item != null)
             {
                 CancelButton.Visible = true;
                 OpenDatabaseButton.Visible = true;
@@ -70,12 +79,13 @@ namespace CertMaker5000
                     i.Control.Hide();
                 }
                 item.Control.Show();
-            } else
+            }
+            else
             {
                 return;
             }
-            
-            
+
+
         }
     }
 

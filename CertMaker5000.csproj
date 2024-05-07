@@ -29,4 +29,16 @@
     <PackageReference Include="PDFtoImage" Version="4.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="DatabaseMSSQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DatabasePostgresql.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DatabaseSqlite.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

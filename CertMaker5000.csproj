@@ -44,7 +44,7 @@
     <Compile Update="Screens\Parts\DatabaseMSSQL.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="DatabasePostgresql.cs">
+    <Compile Update="Screens\Parts\DatabasePostgresql.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Screens\Parts\DatabaseSqlite.cs">

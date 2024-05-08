@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CertMaker5000.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace CertMaker5000
 {
@@ -23,7 +25,16 @@ namespace CertMaker5000
                 TopLevel = false
             }
         };
+        DatabasesSupportedListItem DatabasePostgresqlItem = new DatabasesSupportedListItem()
+        {
+            Name = "POSTGRESQL",
+            Control = new DatabasePostgresqlForm()
+            {
+                TopLevel = false
+            }
+        };
         List<DatabasesSupportedListItem> DatabaseTypesSupported;
+        DataContext db;
 
         public MainStartForm()
         {
@@ -47,6 +58,7 @@ namespace CertMaker5000
             {
                 DatabaseSqliteItem,
                 DatabaseMSSQLItem,
+                DatabasePostgresqlItem,
             });
 
             DatabaseTypeCombo.DataSource = DatabaseTypesSupported;
@@ -106,12 +118,32 @@ namespace CertMaker5000
             // SQLite
             if(DatabaseTypeCombo.SelectedItem == DatabaseSqliteItem)
             {
+                DbContextOptions<DataContext> dbOptions = 
+                    new DbContextOptions<DataContext>() 
+                    { 
 
+                    };
+                db = new DataContext(dbOptions);
             }
             // MSSQL
             if (DatabaseTypeCombo.SelectedItem == DatabaseMSSQLItem)
             {
+                DbContextOptions<DataContext> dbOptions = 
+                    new DbContextOptions<DataContext>() 
+                    { 
 
+                    };
+                db = new DataContext(dbOptions);
+            }
+            // Postgresql
+            if (DatabaseTypeCombo.SelectedItem == DatabasePostgresqlItem)
+            {
+                DbContextOptions<DataContext> dbOptions =
+                    new DbContextOptions<DataContext>()
+                    {
+
+                    };
+                db = new DataContext(dbOptions);
             }
         }
 

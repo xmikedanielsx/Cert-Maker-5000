@@ -41,13 +41,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="DatabaseMSSQL.cs">
+    <Compile Update="Screens\Parts\DatabaseMSSQL.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="DatabasePostgresql.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="DatabaseSqlite.cs">
+    <Compile Update="Screens\Parts\DatabaseSqlite.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

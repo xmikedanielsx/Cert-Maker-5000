@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
+            SqlServerText = new TextBox();
             label1 = new Label();
             label2 = new Label();
-            textBox2 = new TextBox();
+            SqlServerDatabaseText = new TextBox();
             OutsideSplitContainer = new SplitContainer();
             WindowsAuthCheck = new CheckBox();
             InsideSplitContainer = new SplitContainer();
-            textBox4 = new TextBox();
+            SqlServerUser = new TextBox();
             label4 = new Label();
-            textBox3 = new TextBox();
+            SqlServerPass = new TextBox();
             label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)OutsideSplitContainer).BeginInit();
             OutsideSplitContainer.Panel1.SuspendLayout();
@@ -49,14 +49,14 @@
             InsideSplitContainer.SuspendLayout();
             SuspendLayout();
             // 
-            // textBox1
+            // SqlServerText
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Location = new Point(110, 4);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(783, 27);
-            textBox1.TabIndex = 0;
+            SqlServerText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            SqlServerText.Location = new Point(110, 4);
+            SqlServerText.Margin = new Padding(3, 4, 3, 4);
+            SqlServerText.Name = "SqlServerText";
+            SqlServerText.Size = new Size(783, 27);
+            SqlServerText.TabIndex = 0;
             // 
             // label1
             // 
@@ -76,14 +76,14 @@
             label2.TabIndex = 3;
             label2.Text = "SQL Database";
             // 
-            // textBox2
+            // SqlServerDatabase
             // 
-            textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox2.Location = new Point(110, 11);
-            textBox2.Margin = new Padding(3, 4, 3, 4);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(783, 27);
-            textBox2.TabIndex = 2;
+            SqlServerDatabaseText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            SqlServerDatabaseText.Location = new Point(110, 11);
+            SqlServerDatabaseText.Margin = new Padding(3, 4, 3, 4);
+            SqlServerDatabaseText.Name = "SqlServerDatabase";
+            SqlServerDatabaseText.Size = new Size(783, 27);
+            SqlServerDatabaseText.TabIndex = 2;
             // 
             // OutsideSplitContainer
             // 
@@ -95,7 +95,7 @@
             // OutsideSplitContainer.Panel1
             // 
             OutsideSplitContainer.Panel1.Controls.Add(WindowsAuthCheck);
-            OutsideSplitContainer.Panel1.Controls.Add(textBox1);
+            OutsideSplitContainer.Panel1.Controls.Add(SqlServerText);
             OutsideSplitContainer.Panel1.Controls.Add(label1);
             // 
             // OutsideSplitContainer.Panel2
@@ -131,28 +131,28 @@
             // 
             // InsideSplitContainer.Panel1
             // 
-            InsideSplitContainer.Panel1.Controls.Add(textBox4);
+            InsideSplitContainer.Panel1.Controls.Add(SqlServerUser);
             InsideSplitContainer.Panel1.Controls.Add(label4);
-            InsideSplitContainer.Panel1.Controls.Add(textBox3);
+            InsideSplitContainer.Panel1.Controls.Add(SqlServerPass);
             InsideSplitContainer.Panel1.Controls.Add(label3);
             // 
             // InsideSplitContainer.Panel2
             // 
-            InsideSplitContainer.Panel2.Controls.Add(textBox2);
+            InsideSplitContainer.Panel2.Controls.Add(SqlServerDatabaseText);
             InsideSplitContainer.Panel2.Controls.Add(label2);
             InsideSplitContainer.Size = new Size(923, 122);
             InsideSplitContainer.SplitterDistance = 49;
             InsideSplitContainer.SplitterWidth = 5;
             InsideSplitContainer.TabIndex = 5;
             // 
-            // textBox4
+            // SqlServerUser
             // 
-            textBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox4.Location = new Point(110, 8);
-            textBox4.Margin = new Padding(3, 4, 3, 4);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(315, 27);
-            textBox4.TabIndex = 5;
+            SqlServerUser.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            SqlServerUser.Location = new Point(110, 8);
+            SqlServerUser.Margin = new Padding(3, 4, 3, 4);
+            SqlServerUser.Name = "SqlServerUser";
+            SqlServerUser.Size = new Size(315, 27);
+            SqlServerUser.TabIndex = 5;
             // 
             // label4
             // 
@@ -163,14 +163,14 @@
             label4.TabIndex = 6;
             label4.Text = "SQL User";
             // 
-            // textBox3
+            // SqlServerPass
             // 
-            textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox3.Location = new Point(539, 8);
-            textBox3.Margin = new Padding(3, 4, 3, 4);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(354, 27);
-            textBox3.TabIndex = 3;
+            SqlServerPass.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SqlServerPass.Location = new Point(539, 8);
+            SqlServerPass.Margin = new Padding(3, 4, 3, 4);
+            SqlServerPass.Name = "SqlServerPass";
+            SqlServerPass.Size = new Size(354, 27);
+            SqlServerPass.TabIndex = 3;
             // 
             // label3
             // 
@@ -213,16 +213,16 @@
 
         #endregion
 
-        private TextBox textBox1;
+        private TextBox SqlServerText;
         private Label label1;
         private Label label2;
-        private TextBox textBox2;
+        private TextBox SqlServerDatabaseText;
         private SplitContainer OutsideSplitContainer;
         private SplitContainer InsideSplitContainer;
         private CheckBox WindowsAuthCheck;
-        private TextBox textBox3;
+        private TextBox SqlServerPass;
         private Label label3;
-        private TextBox textBox4;
+        private TextBox SqlServerUser;
         private Label label4;
     }
 }

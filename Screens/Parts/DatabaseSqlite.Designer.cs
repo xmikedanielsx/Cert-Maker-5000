@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DatabaseSqliteForm));
-            textBox1 = new TextBox();
+            DatabaseLocationText = new TextBox();
             label1 = new Label();
             label2 = new Label();
             BrowseDatabaseButton = new Button();
             SuspendLayout();
             // 
-            // textBox1
+            // DatabaseLocationText
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Location = new Point(178, 56);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(891, 27);
-            textBox1.TabIndex = 0;
+            DatabaseLocationText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            DatabaseLocationText.Location = new Point(178, 56);
+            DatabaseLocationText.Margin = new Padding(3, 4, 3, 4);
+            DatabaseLocationText.Name = "DatabaseLocationText";
+            DatabaseLocationText.Size = new Size(891, 27);
+            DatabaseLocationText.TabIndex = 0;
             // 
             // label1
             // 
@@ -85,7 +85,7 @@
             Controls.Add(BrowseDatabaseButton);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(textBox1);
+            Controls.Add(DatabaseLocationText);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
@@ -99,7 +99,7 @@
 
         #endregion
 
-        private TextBox textBox1;
+        public TextBox DatabaseLocationText;
         private Label label1;
         private Label label2;
         private Button BrowseDatabaseButton;

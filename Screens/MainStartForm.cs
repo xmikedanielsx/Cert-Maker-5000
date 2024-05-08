@@ -87,6 +87,34 @@ namespace CertMaker5000
 
 
         }
+
+        private void OpenDatabaseButton_Click(object sender, EventArgs e)
+        {
+            DoDBStuff(false);
+        }
+        private void CreateDatabaseButton_Click(object sender, EventArgs e)
+        {
+            DoDBStuff(true);
+        }
+
+        /// <summary>
+        /// This Method Either Creates or Opens a Database. 
+        /// Then will Complete Migrations as needed defined in EF
+        /// </summary>
+        private void DoDBStuff(bool IsCreating)
+        {
+            // SQLite
+            if(DatabaseTypeCombo.SelectedItem == DatabaseSqliteItem)
+            {
+
+            }
+            // MSSQL
+            if (DatabaseTypeCombo.SelectedItem == DatabaseMSSQLItem)
+            {
+
+            }
+        }
+
     }
 
     class DatabasesSupportedListItem

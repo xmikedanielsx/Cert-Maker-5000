@@ -97,6 +97,7 @@
             OpenDatabaseButton.Text = "Open DB";
             OpenDatabaseButton.UseVisualStyleBackColor = false;
             OpenDatabaseButton.Visible = false;
+            OpenDatabaseButton.Click += OpenDatabaseButton_Click;
             // 
             // CancelButton
             // 
@@ -127,6 +128,7 @@
             CreateDatabaseButton.Text = "Create DB";
             CreateDatabaseButton.UseVisualStyleBackColor = false;
             CreateDatabaseButton.Visible = false;
+            CreateDatabaseButton.Click += CreateDatabaseButton_Click;
             // 
             // MainStartForm
             // 

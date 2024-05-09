@@ -1,9 +1,12 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using CertMaker5000.Data;
+using CertMaker5000.Screens.Interfaces;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 
 namespace CertMaker5000
 {
-    public partial class DatabaseMSSQLForm : Form
+    public partial class DatabaseMSSQLForm : Form, IGetConnectionStringUI
     {
         public DatabaseMSSQLForm()
         {
@@ -36,7 +39,19 @@ namespace CertMaker5000
             }
         }
 
-        public string GetConnectionString ()
+        public DbContextOptions<DataContext> GetDbContextOptions()
+        {
+            return
+                SqlServerDbContextOptionsExtensions
+                    .UseSqlServer(new DbContextOptionsBuilder<DataContext>(), GetConnectionString())
+                    .Options;
+        }
+
+        public DbContextOptionsBuilder BuildOptions(DbContextOptionsBuilder builder)
+            => builder.UseSqlServer(GetConnectionString());
+        
+
+        public string GetConnectionString() 
         {
 
             SqlConnectionStringBuilder csb = new();

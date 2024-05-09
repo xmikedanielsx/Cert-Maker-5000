@@ -33,6 +33,9 @@
             label1 = new Label();
             label2 = new Label();
             BrowseDatabaseButton = new Button();
+            label3 = new Label();
+            DatabasePasswordText = new TextBox();
+            label4 = new Label();
             SuspendLayout();
             // 
             // DatabaseLocationText
@@ -56,9 +59,9 @@
             // label2
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label2.Location = new Point(31, 105);
+            label2.Location = new Point(31, 131);
             label2.Name = "label2";
-            label2.Size = new Size(1075, 72);
+            label2.Size = new Size(1075, 140);
             label2.TabIndex = 2;
             label2.Text = resources.GetString("label2.Text");
             // 
@@ -76,12 +79,42 @@
             BrowseDatabaseButton.UseVisualStyleBackColor = false;
             BrowseDatabaseButton.Click += BrowseDatabaseButton_Click;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(94, 94);
+            label3.Name = "label3";
+            label3.Size = new Size(70, 20);
+            label3.TabIndex = 17;
+            label3.Text = "Password";
+            // 
+            // DatabasePasswordText
+            // 
+            DatabasePasswordText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            DatabasePasswordText.Location = new Point(178, 91);
+            DatabasePasswordText.Margin = new Padding(3, 4, 3, 4);
+            DatabasePasswordText.Name = "DatabasePasswordText";
+            DatabasePasswordText.Size = new Size(336, 27);
+            DatabasePasswordText.TabIndex = 16;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(533, 98);
+            label4.Name = "label4";
+            label4.Size = new Size(145, 20);
+            label4.TabIndex = 18;
+            label4.Text = "Note: Not Required. ";
+            // 
             // DatabaseSqliteForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1126, 186);
+            ClientSize = new Size(1126, 280);
             ControlBox = false;
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(DatabasePasswordText);
             Controls.Add(BrowseDatabaseButton);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -103,5 +136,8 @@
         private Label label1;
         private Label label2;
         private Button BrowseDatabaseButton;
+        private Label label3;
+        public TextBox DatabasePasswordText;
+        private Label label4;
     }
 }

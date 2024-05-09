@@ -1,12 +1,16 @@
 ﻿using CertMaker5000.Data;
+using CertMaker5000.Screens.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using CertMaker5000.Screens.Parts;
+using Microsoft.Data.Sqlite;
+using CertMaker5000.Data.Models;
+using System.Runtime.CompilerServices;
 
 namespace CertMaker5000
 {
     public partial class MainStartForm : Form
     {
-
+        public Func<DbContextOptionsBuilder, DbContextOptionsBuilder> MyDBSetupFunc;
         //List<string> DatabaseTypesSupported = new List<string>();
 
         DatabasesSupportedListItem DatabaseSqliteItem = new DatabasesSupportedListItem()
@@ -34,9 +38,9 @@ namespace CertMaker5000
             }
         };
         List<DatabasesSupportedListItem> DatabaseTypesSupported;
-        DataContext db;
+        //DataContext db;
 
-        public MainStartForm()
+        private MainStartForm()
         {
             InitializeComponent();
             BackColor = HelperClasses.GetSystemColor();
@@ -108,54 +112,52 @@ namespace CertMaker5000
         {
             DoDBStuff(true);
         }
-
+        
         /// <summary>
         /// This Method Either Creates or Opens a Database. 
         /// Then will Complete Migrations as needed defined in EF
         /// </summary>
         private void DoDBStuff(bool IsCreating)
         {
-            // SQLite
-            if(DatabaseTypeCombo.SelectedItem == DatabaseSqliteItem)
-            {
-                DbContextOptions<DataContext> dbOptions = 
-                    new DbContextOptions<DataContext>() 
-                    { 
 
-                    };
-                db = new DataContext(dbOptions);
-            }
-            // MSSQL
-            if (DatabaseTypeCombo.SelectedItem == DatabaseMSSQLItem)
-            {
-                DbContextOptions<DataContext> dbOptions = 
-                    new DbContextOptions<DataContext>() 
-                    { 
+            var item = ((DatabasesSupportedListItem)DatabaseTypeCombo.SelectedItem);
+            var itemForm = (IGetConnectionStringUI)item.Control!;
+            string connstring = itemForm.GetConnectionString();
 
-                    };
-                db = new DataContext(dbOptions);
-            }
-            // Postgresql
-            if (DatabaseTypeCombo.SelectedItem == DatabasePostgresqlItem)
-            {
-                DbContextOptions<DataContext> dbOptions =
-                    new DbContextOptions<DataContext>()
-                    {
+            //string connstring = item.GetConnectionString();
+            MyDBSetupFunc = itemForm.BuildOptions;
+            var builder = new DbContextOptionsBuilder<DataContext>();
+            itemForm.BuildOptions(builder);
 
-                    };
-                db = new DataContext(dbOptions);
-            }
+            using DataContext db = new DataContext(builder.Options);
+            db.Database.EnsureCreated();
+            db.Dispose();
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+
         }
 
-    }
-
-    class DatabasesSupportedListItem
-    {
-        public DatabasesSupportedListItem()
+        internal static Func<DbContextOptionsBuilder, DbContextOptionsBuilder> DialogForDatabaseConfig()
         {
-            this.Name = string.Empty;
+            var form = new MainStartForm();
+            DialogResult result;
+            try
+            {
+               result = form.ShowDialog();
+            } 
+            catch (Exception ex) {
+                throw;
+            }
+            if(result != DialogResult.OK)
+            {
+                Application.Exit();
+            }
+            
+            return form.MyDBSetupFunc;
+
         }
-        public string Name { get; set; }
-        public Control? Control { get; set; }
     }
+
+    
 }

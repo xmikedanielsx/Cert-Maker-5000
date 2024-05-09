@@ -118,6 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label2.Text" xml:space="preserve">
-    <value>Note if you plan on having multiple people use this software. As well as if you want to make backups. It's highly encouraged you put the SqLite database on a network share. Please note it is highly discouraged to put the database in a directroy that is synced directly with services like DropBox, GoogleDrive, OneDrive etc... </value>
+    <value>Note if you plan on having multiple people use this software. As well as if you want to make backups. It's highly encouraged you put the SqLite database on a network share. Please note it is highly discouraged to put the database in a directroy that is synced directly with services like DropBox, GoogleDrive, OneDrive etc... 
+Please Note, that if you choose to use a password (which is recommended and good practice) you must share this password with anyone else that you want to allow to connect to the database. This password will be stored in your registry encrypted. But it is requried to connect for the first time. However, this prevents someone taking the SQLite Database and opening it at home without the password.</value>
   </data>
 </root>

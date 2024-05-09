@@ -1,6 +1,9 @@
+using CertMaker5000.Data;
+using CertMaker5000.Data.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
 using iTextSharp.text.pdf;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Data;
@@ -26,6 +29,7 @@ namespace CertMaker5000
         TextBox DefaultControlTextBox = new();
         TabPage DefaultControlTabPage = new();
         Form DefaultControlForm = new Form();
+        List<Event> events;
 
 
         Color BackgroundColor = HelperClasses.GetSystemColor();
@@ -33,12 +37,16 @@ namespace CertMaker5000
         private Dictionary<TabPage, Color> TabColors = new Dictionary<TabPage, Color>();
         bool DarkTheme = HelperClasses.GetWindowsColorMode();
         List<InitialColorsListItem> InitialColorsList = new();
-
-        public MainForm()
+        DataContext db;
+        public MainForm(DataContext db)
         {
+            this.db = db;
             InitializeComponent();
             SetInitialTheme();
+            events = this.db.Events.ToList();
+            
             //SetThemeColors();
+            
         }
 
         #region Helper Methods

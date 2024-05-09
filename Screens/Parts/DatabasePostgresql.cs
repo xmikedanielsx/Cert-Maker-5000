@@ -1,9 +1,12 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using CertMaker5000.Data;
+using CertMaker5000.Screens.Interfaces;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
 namespace CertMaker5000
 {
-    public partial class DatabasePostgresqlForm : Form
+    public partial class DatabasePostgresqlForm : Form, IGetConnectionStringUI
     {
         public DatabasePostgresqlForm()
         {
@@ -22,6 +25,17 @@ namespace CertMaker5000
             Application.Exit();
         }
 
+        public DbContextOptions<DataContext> GetDbContextOptions()
+        {
+            return 
+                NpgsqlDbContextOptionsBuilderExtensions
+                    .UseNpgsql(new DbContextOptionsBuilder<DataContext>(), GetConnectionString())
+                    .Options;
+        }
+        public DbContextOptionsBuilder BuildOptions(DbContextOptionsBuilder builder)
+            => builder.UseNpgsql(GetConnectionString());
+
+
         public string GetConnectionString()
         {
 
@@ -34,7 +48,6 @@ namespace CertMaker5000
             
             return csb.ConnectionString;
 
-            // BRB. Checking on Son
         }
 
     }

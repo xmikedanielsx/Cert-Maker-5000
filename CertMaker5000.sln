@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertMaker5000", "CertMaker5000.csproj", "{EFF73CD4-89A3-41DD-9DEE-E93962437434}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CertMaker5000", "CertMaker5000\CertMaker5000.csproj", "{EFF73CD4-89A3-41DD-9DEE-E93962437434}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MigrationsSqLite", "MigrationsSqLite\MigrationsSqLite.csproj", "{2F2B6F27-AE4A-41F8-AA52-E8D3BDB7DA5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MigrationsPostgresql", "MigrationsPostgresql\MigrationsPostgresql.csproj", "{D85F4E2F-AC8F-4C94-9D35-A4B76DB8032D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataContextLibrary", "DataContext\DataContextLibrary.csproj", "{0260F5B9-A437-4447-9FCD-E4644D001E1C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MigrationsSqlServer", "MigrationsSqlServer\MigrationsSqlServer.csproj", "{84AD4571-BB27-43BF-81E9-EDBA3D6FF672}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MigrationsMySQL", "MigrationsMySQL\MigrationsMySQL.csproj", "{EBE69C10-8CA6-4E5A-B646-77149F5AC59B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +25,26 @@ Global
 		{EFF73CD4-89A3-41DD-9DEE-E93962437434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFF73CD4-89A3-41DD-9DEE-E93962437434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFF73CD4-89A3-41DD-9DEE-E93962437434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F2B6F27-AE4A-41F8-AA52-E8D3BDB7DA5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2B6F27-AE4A-41F8-AA52-E8D3BDB7DA5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F2B6F27-AE4A-41F8-AA52-E8D3BDB7DA5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F2B6F27-AE4A-41F8-AA52-E8D3BDB7DA5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D85F4E2F-AC8F-4C94-9D35-A4B76DB8032D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D85F4E2F-AC8F-4C94-9D35-A4B76DB8032D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D85F4E2F-AC8F-4C94-9D35-A4B76DB8032D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D85F4E2F-AC8F-4C94-9D35-A4B76DB8032D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0260F5B9-A437-4447-9FCD-E4644D001E1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0260F5B9-A437-4447-9FCD-E4644D001E1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0260F5B9-A437-4447-9FCD-E4644D001E1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0260F5B9-A437-4447-9FCD-E4644D001E1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84AD4571-BB27-43BF-81E9-EDBA3D6FF672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84AD4571-BB27-43BF-81E9-EDBA3D6FF672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84AD4571-BB27-43BF-81E9-EDBA3D6FF672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84AD4571-BB27-43BF-81E9-EDBA3D6FF672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBE69C10-8CA6-4E5A-B646-77149F5AC59B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBE69C10-8CA6-4E5A-B646-77149F5AC59B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE69C10-8CA6-4E5A-B646-77149F5AC59B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBE69C10-8CA6-4E5A-B646-77149F5AC59B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

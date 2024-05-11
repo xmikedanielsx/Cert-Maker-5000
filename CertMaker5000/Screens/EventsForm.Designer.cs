@@ -32,7 +32,9 @@
             EventsDataGrid = new DataGridView();
             SearchTextBox = new TextBox();
             EventsMainPanel = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
             DescriptionTextBox = new TextBox();
+            ParticipantsList = new DataGridView();
             label7 = new Label();
             ZipTextBox = new TextBox();
             label6 = new Label();
@@ -46,13 +48,13 @@
             label2 = new Label();
             TitleTextBox = new TextBox();
             label1 = new Label();
-            ParticipantsList = new DataGridView();
             EventsButtonLayouPanel = new TableLayoutPanel();
             RefreshButton = new Button();
             SaveButton = new Button();
             EventsMainLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)EventsDataGrid).BeginInit();
             EventsMainPanel.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ParticipantsList).BeginInit();
             EventsButtonLayouPanel.SuspendLayout();
             SuspendLayout();
@@ -106,7 +108,7 @@
             // 
             // EventsMainPanel
             // 
-            EventsMainPanel.Controls.Add(DescriptionTextBox);
+            EventsMainPanel.Controls.Add(tableLayoutPanel1);
             EventsMainPanel.Controls.Add(label7);
             EventsMainPanel.Controls.Add(ZipTextBox);
             EventsMainPanel.Controls.Add(label6);
@@ -120,7 +122,6 @@
             EventsMainPanel.Controls.Add(label2);
             EventsMainPanel.Controls.Add(TitleTextBox);
             EventsMainPanel.Controls.Add(label1);
-            EventsMainPanel.Controls.Add(ParticipantsList);
             EventsMainPanel.Dock = DockStyle.Fill;
             EventsMainPanel.Location = new Point(389, 32);
             EventsMainPanel.Margin = new Padding(3, 2, 3, 2);
@@ -128,15 +129,45 @@
             EventsMainPanel.Size = new Size(987, 604);
             EventsMainPanel.TabIndex = 2;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(DescriptionTextBox, 0, 0);
+            tableLayoutPanel1.Controls.Add(ParticipantsList, 0, 1);
+            tableLayoutPanel1.Location = new Point(15, 165);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 60F));
+            tableLayoutPanel1.Size = new Size(963, 429);
+            tableLayoutPanel1.TabIndex = 15;
+            // 
             // DescriptionTextBox
             // 
-            DescriptionTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            DescriptionTextBox.Location = new Point(15, 164);
+            DescriptionTextBox.Dock = DockStyle.Fill;
+            DescriptionTextBox.Location = new Point(3, 2);
             DescriptionTextBox.Margin = new Padding(3, 2, 3, 2);
             DescriptionTextBox.Multiline = true;
             DescriptionTextBox.Name = "DescriptionTextBox";
-            DescriptionTextBox.Size = new Size(963, 130);
+            DescriptionTextBox.Size = new Size(957, 167);
             DescriptionTextBox.TabIndex = 14;
+            // 
+            // ParticipantsList
+            // 
+            ParticipantsList.AllowUserToAddRows = false;
+            ParticipantsList.AllowUserToDeleteRows = false;
+            ParticipantsList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ParticipantsList.Dock = DockStyle.Fill;
+            ParticipantsList.Location = new Point(3, 173);
+            ParticipantsList.Margin = new Padding(3, 2, 3, 2);
+            ParticipantsList.Name = "ParticipantsList";
+            ParticipantsList.ReadOnly = true;
+            ParticipantsList.RowHeadersWidth = 51;
+            ParticipantsList.RowTemplate.Height = 29;
+            ParticipantsList.Size = new Size(957, 254);
+            ParticipantsList.TabIndex = 0;
             // 
             // label7
             // 
@@ -258,21 +289,6 @@
             label1.TabIndex = 1;
             label1.Text = "Event Title";
             // 
-            // ParticipantsList
-            // 
-            ParticipantsList.AllowUserToAddRows = false;
-            ParticipantsList.AllowUserToDeleteRows = false;
-            ParticipantsList.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            ParticipantsList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ParticipantsList.Location = new Point(3, 298);
-            ParticipantsList.Margin = new Padding(3, 2, 3, 2);
-            ParticipantsList.Name = "ParticipantsList";
-            ParticipantsList.ReadOnly = true;
-            ParticipantsList.RowHeadersWidth = 51;
-            ParticipantsList.RowTemplate.Height = 29;
-            ParticipantsList.Size = new Size(982, 303);
-            ParticipantsList.TabIndex = 0;
-            // 
             // EventsButtonLayouPanel
             // 
             EventsButtonLayouPanel.ColumnCount = 4;
@@ -334,6 +350,8 @@
             ((System.ComponentModel.ISupportInitialize)EventsDataGrid).EndInit();
             EventsMainPanel.ResumeLayout(false);
             EventsMainPanel.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ParticipantsList).EndInit();
             EventsButtonLayouPanel.ResumeLayout(false);
             ResumeLayout(false);
@@ -363,5 +381,6 @@
         private Label label2;
         private TextBox DescriptionTextBox;
         private Label label7;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }

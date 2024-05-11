@@ -26,6 +26,17 @@ namespace CertMaker5000.Screens
             DataInitialLoaded = false;
             CurrentEvents = db.Events.ToList();
             EventsDataGrid.DataSource = CurrentEvents;
+            List<string> columnstokeep = new List<string>() { "Name" };
+            foreach (DataGridViewColumn column in EventsDataGrid.Columns)
+            {
+                column.Visible = false;
+            }
+            foreach (string s in columnstokeep)
+            {
+                EventsDataGrid.Columns[s].Visible = true;
+            }
+
+
             EventsDataGrid.Refresh();
             DataInitialLoaded = true;
         }
@@ -69,6 +80,16 @@ namespace CertMaker5000.Screens
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            CurrentEvent.Name = TitleTextBox.Text;
+            CurrentEvent.Description = DescriptionTextBox.Text;
+            CurrentEvent.Address1 = Address1TextBox.Text;
+            CurrentEvent.Address2 = Address2TextBox.Text;
+            CurrentEvent.City = CityTextBox.Text;
+            CurrentEvent.State = StateTextBox.Text;
+            CurrentEvent.Zip = !String.IsNullOrEmpty(ZipTextBox.Text) ? Convert.ToInt32(ZipTextBox.Text) : null;
+            db.SaveChanges();
+
+
             IsEditing = false;
         }
     }

@@ -32,7 +32,7 @@
             EventsDataGrid = new DataGridView();
             SearchTextBox = new TextBox();
             EventsMainPanel = new Panel();
-            textBox1 = new TextBox();
+            DescriptionTextBox = new TextBox();
             label7 = new Label();
             ZipTextBox = new TextBox();
             label6 = new Label();
@@ -44,7 +44,7 @@
             label3 = new Label();
             Address1TextBox = new TextBox();
             label2 = new Label();
-            EventTitle = new TextBox();
+            TitleTextBox = new TextBox();
             label1 = new Label();
             ParticipantsList = new DataGridView();
             EventsButtonLayouPanel = new TableLayoutPanel();
@@ -85,12 +85,14 @@
             EventsDataGrid.Dock = DockStyle.Fill;
             EventsDataGrid.Location = new Point(3, 32);
             EventsDataGrid.Margin = new Padding(3, 2, 3, 2);
+            EventsDataGrid.MultiSelect = false;
             EventsDataGrid.Name = "EventsDataGrid";
             EventsDataGrid.ReadOnly = true;
             EventsDataGrid.RowHeadersWidth = 51;
             EventsDataGrid.RowTemplate.Height = 29;
             EventsDataGrid.Size = new Size(380, 604);
             EventsDataGrid.TabIndex = 0;
+            EventsDataGrid.SelectionChanged += EventsDataGrid_SelectionChanged;
             // 
             // SearchTextBox
             // 
@@ -104,7 +106,7 @@
             // 
             // EventsMainPanel
             // 
-            EventsMainPanel.Controls.Add(textBox1);
+            EventsMainPanel.Controls.Add(DescriptionTextBox);
             EventsMainPanel.Controls.Add(label7);
             EventsMainPanel.Controls.Add(ZipTextBox);
             EventsMainPanel.Controls.Add(label6);
@@ -116,7 +118,7 @@
             EventsMainPanel.Controls.Add(label3);
             EventsMainPanel.Controls.Add(Address1TextBox);
             EventsMainPanel.Controls.Add(label2);
-            EventsMainPanel.Controls.Add(EventTitle);
+            EventsMainPanel.Controls.Add(TitleTextBox);
             EventsMainPanel.Controls.Add(label1);
             EventsMainPanel.Controls.Add(ParticipantsList);
             EventsMainPanel.Dock = DockStyle.Fill;
@@ -126,15 +128,15 @@
             EventsMainPanel.Size = new Size(987, 604);
             EventsMainPanel.TabIndex = 2;
             // 
-            // textBox1
+            // DescriptionTextBox
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Location = new Point(17, 128);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(963, 120);
-            textBox1.TabIndex = 14;
+            DescriptionTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            DescriptionTextBox.Location = new Point(17, 128);
+            DescriptionTextBox.Margin = new Padding(3, 2, 3, 2);
+            DescriptionTextBox.Multiline = true;
+            DescriptionTextBox.Name = "DescriptionTextBox";
+            DescriptionTextBox.Size = new Size(963, 120);
+            DescriptionTextBox.TabIndex = 14;
             // 
             // label7
             // 
@@ -237,14 +239,14 @@
             label2.TabIndex = 3;
             label2.Text = "Address 1";
             // 
-            // EventTitle
+            // TitleTextBox
             // 
-            EventTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            EventTitle.Location = new Point(90, 10);
-            EventTitle.Margin = new Padding(3, 2, 3, 2);
-            EventTitle.Name = "EventTitle";
-            EventTitle.Size = new Size(889, 23);
-            EventTitle.TabIndex = 2;
+            TitleTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TitleTextBox.Location = new Point(90, 10);
+            TitleTextBox.Margin = new Padding(3, 2, 3, 2);
+            TitleTextBox.Name = "TitleTextBox";
+            TitleTextBox.Size = new Size(889, 23);
+            TitleTextBox.TabIndex = 2;
             // 
             // label1
             // 
@@ -311,6 +313,7 @@
             SaveButton.TabIndex = 0;
             SaveButton.Text = "Save";
             SaveButton.UseVisualStyleBackColor = true;
+            SaveButton.Click += SaveButton_Click;
             // 
             // EventsForm
             // 
@@ -345,7 +348,7 @@
         private Button RefreshButton;
         private Button SaveButton;
         private DataGridView ParticipantsList;
-        private TextBox EventTitle;
+        private TextBox TitleTextBox;
         private Label label1;
         private TextBox ZipTextBox;
         private Label label6;
@@ -357,7 +360,7 @@
         private Label label3;
         private TextBox Address1TextBox;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox DescriptionTextBox;
         private Label label7;
     }
 }

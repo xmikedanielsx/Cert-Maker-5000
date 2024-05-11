@@ -16,8 +16,8 @@ namespace CertMaker5000
 
         private void SetThemeSettings()
         {
-            this.BackColor = HelperClasses.GetSystemColor();
-            this.ForeColor = HelperClasses.GetSystemFontColor();
+            this.BackColor = HelperClasses.GetSystemColor(HelperClasses.GetWindowsColorMode());
+            this.ForeColor = HelperClasses.GetSystemFontColor(HelperClasses.GetWindowsColorMode());
         }
         private void CancelButton_Click(object sender, EventArgs e)
         {

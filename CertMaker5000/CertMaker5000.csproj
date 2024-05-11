@@ -9,6 +9,7 @@
     <ApplicationIcon>Certificate.ico</ApplicationIcon>
     <PackageIcon>7238706.png</PackageIcon>
     <SignAssembly>False</SignAssembly>
+	  <LangVersion>10</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,8 +1,12 @@
-﻿using System;
+﻿using CertMaker5000.Screens;
+using Org.BouncyCastle.Asn1.X509.Qualified;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CertMaker5000
 {
@@ -21,9 +25,9 @@ namespace CertMaker5000
         }
         /// <summary>This Returns a <see cref="System.Drawing.Color"/> Based on Ssytem Theme Setings</summary>
         /// <returns>System.Drawing.Color</returns>
-        public static Color GetSystemColor(bool IsDarkModeOverride = true)
+        public static Color GetSystemColor(bool DarkTheme)
         {
-            if (GetWindowsColorMode() && IsDarkModeOverride == true)
+            if (DarkTheme)
             {
                 return GetSystemColorFromHex("#1e1e1e");
             }
@@ -36,10 +40,10 @@ namespace CertMaker5000
         /// This returns a <see cref="System.Drawing.Color"/> for the Font Color to be used based on system settings.
         /// </summary>
         /// <returns></returns>
-        public static Color GetSystemFontColor(bool IsDarkModeOverride = true)
+        public static Color GetSystemFontColor(bool DarkTheme)
         {
             // Dark mode
-            if (GetWindowsColorMode() && IsDarkModeOverride == true)
+            if (DarkTheme)
             {
                 return GetSystemColorFromHex("#CCCCCC");
             } 
@@ -67,6 +71,46 @@ namespace CertMaker5000
             {
                 return false;
             }
+        }
+
+        public static void SetControlColor(Control control, bool DarkTheme)
+        {
+            Control? a = (GetInitialFormControls().Where(f => f.Key == control.GetType()).FirstOrDefault()).Value;
+            //bool DarkTheme = GetWindowsColorMode();
+            if (a != null)
+            {
+                if (DarkTheme)
+                {
+                    control.BackColor = GetSystemColor(DarkTheme);
+                    control.ForeColor = GetSystemFontColor(DarkTheme);
+                }
+                else
+                {
+                    control.BackColor = a.BackColor;
+                    control.ForeColor = a.ForeColor;
+                }
+            }
+        }
+
+        public static Dictionary<Type, Control> GetInitialFormControls()
+        {
+            Dictionary<Type,Control> rval = new();
+            
+            rval.Add(typeof(TabControl), new TabControl());
+            rval.Add(typeof(TableLayoutPanel), new TableLayoutPanel());
+            rval.Add(typeof(MenuStrip), new MenuStrip());
+            rval.Add(typeof(Panel), new Panel());
+            rval.Add(typeof(Form), new Form());
+            rval.Add(typeof(ListBox), new ListBox());
+            rval.Add(typeof(Button), new Button());
+            rval.Add(typeof(Label), new Label());
+            rval.Add(typeof(TabPage), new TabPage());
+            rval.Add(typeof(MainForm), new Form() {});
+            rval.Add(typeof(TextBox), new TextBox() {});
+
+
+
+            return rval;
         }
 
     }

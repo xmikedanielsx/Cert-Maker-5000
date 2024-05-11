@@ -1,15 +1,5 @@
 ﻿using CertMaker5000.Screens.Parts;
-using Org.BouncyCastle.Asn1.Crmf;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using DataContextLibrary;
 
 namespace CertMaker5000.Screens
 {
@@ -20,15 +10,18 @@ namespace CertMaker5000.Screens
         Color ForegroundColor;
         bool DarkTheme = HelperClasses.GetWindowsColorMode();
         List<Form> CurrentOpenForms = new List<Form>();
-        EventsForm EventsForm = new EventsForm() { TopLevel = false };
+        EventsForm EventsForm;
         List<string> ThemeList = new() { "Light", "Dark" };
-
-        public MainForm()
+        DataContext db;
+        public MainForm(DataContext db)
         {
             BackgroundColor = HelperClasses.GetSystemColor(DarkTheme);
             ForegroundColor = HelperClasses.GetSystemFontColor(DarkTheme);
             
             InitializeComponent();
+            this.db = db;
+            
+            this.EventsForm = new EventsForm(db) { TopLevel = false };
             
             AddFormsToList();
             

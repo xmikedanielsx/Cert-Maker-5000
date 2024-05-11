@@ -80,6 +80,7 @@
             // 
             EventsDataGrid.AllowUserToAddRows = false;
             EventsDataGrid.AllowUserToDeleteRows = false;
+            EventsDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             EventsDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             EventsDataGrid.Dock = DockStyle.Fill;
             EventsDataGrid.Location = new Point(3, 32);
@@ -174,7 +175,7 @@
             // 
             // label5
             // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Location = new Point(583, 86);
             label5.Name = "label5";
@@ -184,10 +185,11 @@
             // 
             // CityTextBox
             // 
+            CityTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             CityTextBox.Location = new Point(90, 84);
             CityTextBox.Margin = new Padding(3, 2, 3, 2);
             CityTextBox.Name = "CityTextBox";
-            CityTextBox.Size = new Size(471, 23);
+            CityTextBox.Size = new Size(444, 23);
             CityTextBox.TabIndex = 8;
             // 
             // label4
@@ -296,6 +298,7 @@
             RefreshButton.TabIndex = 1;
             RefreshButton.Text = "Refresh";
             RefreshButton.UseVisualStyleBackColor = true;
+            RefreshButton.Click += RefreshButton_Click;
             // 
             // SaveButton
             // 

@@ -19,11 +19,48 @@ namespace MigrationsMySQL.Migrations
                 .HasAnnotation("ProductVersion", "6.0.29")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("DataContextLibrary.Models.Certificates", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("FilePathImage")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("FilePathPDF")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ParticipanstId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ParticipantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParticipantId");
+
+                    b.ToTable("Certificates");
+                });
+
             modelBuilder.Entity("DataContextLibrary.Models.Event", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -36,6 +73,16 @@ namespace MigrationsMySQL.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TemplateFilePath")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("Zip")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Events");
@@ -46,6 +93,18 @@ namespace MigrationsMySQL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -68,6 +127,17 @@ namespace MigrationsMySQL.Migrations
                     b.Property<int?>("Phone")
                         .HasColumnType("int");
 
+                    b.Property<string>("RegisteredEmail")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("Zip")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Participants");
@@ -88,6 +158,17 @@ namespace MigrationsMySQL.Migrations
                     b.ToTable("EventParticipant");
                 });
 
+            modelBuilder.Entity("DataContextLibrary.Models.Certificates", b =>
+                {
+                    b.HasOne("DataContextLibrary.Models.Participant", "Participant")
+                        .WithMany("Certificates")
+                        .HasForeignKey("ParticipantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Participant");
+                });
+
             modelBuilder.Entity("EventParticipant", b =>
                 {
                     b.HasOne("DataContextLibrary.Models.Event", null)
@@ -101,6 +182,11 @@ namespace MigrationsMySQL.Migrations
                         .HasForeignKey("ParticipantsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataContextLibrary.Models.Participant", b =>
+                {
+                    b.Navigation("Certificates");
                 });
 #pragma warning restore 612, 618
         }

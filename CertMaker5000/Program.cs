@@ -26,7 +26,10 @@ namespace CertMaker5000
 
 
             var DBConfig = MainStartForm.DialogForDatabaseConfig();
-
+            if(DBConfig is null)
+            {
+                return;
+            }
 
             // FOR CREATING MIGRATIONS 
             //var DBConfig = UseSqlServer;

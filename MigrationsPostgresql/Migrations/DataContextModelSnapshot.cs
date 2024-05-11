@@ -22,6 +22,33 @@ namespace MigrationsPostgresql.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("DataContextLibrary.Models.Certificates", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FilePathImage")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FilePathPDF")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ParticipanstId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ParticipantId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParticipantId");
+
+                    b.ToTable("Certificates");
+                });
+
             modelBuilder.Entity("DataContextLibrary.Models.Event", b =>
                 {
                     b.Property<int>("Id")
@@ -29,6 +56,18 @@ namespace MigrationsPostgresql.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -40,6 +79,16 @@ namespace MigrationsPostgresql.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TemplateFilePath")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("Zip")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -53,6 +102,18 @@ namespace MigrationsPostgresql.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -75,6 +136,17 @@ namespace MigrationsPostgresql.Migrations
                     b.Property<int?>("Phone")
                         .HasColumnType("integer");
 
+                    b.Property<string>("RegisteredEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("Zip")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("Participants");
@@ -95,6 +167,17 @@ namespace MigrationsPostgresql.Migrations
                     b.ToTable("EventParticipant");
                 });
 
+            modelBuilder.Entity("DataContextLibrary.Models.Certificates", b =>
+                {
+                    b.HasOne("DataContextLibrary.Models.Participant", "Participant")
+                        .WithMany("Certificates")
+                        .HasForeignKey("ParticipantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Participant");
+                });
+
             modelBuilder.Entity("EventParticipant", b =>
                 {
                     b.HasOne("DataContextLibrary.Models.Event", null)
@@ -108,6 +191,11 @@ namespace MigrationsPostgresql.Migrations
                         .HasForeignKey("ParticipantsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataContextLibrary.Models.Participant", b =>
+                {
+                    b.Navigation("Certificates");
                 });
 #pragma warning restore 612, 618
         }

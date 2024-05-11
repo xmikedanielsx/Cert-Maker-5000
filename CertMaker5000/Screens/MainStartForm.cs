@@ -11,6 +11,7 @@ namespace CertMaker5000
     public partial class MainStartForm : Form
     {
         public Func<DbContextOptionsBuilder, DbContextOptionsBuilder> MyDBSetupFunc;
+        bool exitprogram = false;
         //List<string> DatabaseTypesSupported = new List<string>();
 
         DatabasesSupportedListItem DatabaseSqliteItem = new DatabasesSupportedListItem()
@@ -79,7 +80,7 @@ namespace CertMaker5000
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            ExitProgram();
         }
 
         private void DatabaseTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -136,6 +137,11 @@ namespace CertMaker5000
                 //db.Database.EnsureCreated();
                 if (db.Database.CanConnect())
                 {
+                    //if (!IsCreating)
+                    //{
+                    //    db.Database.Migrate();
+                    //}
+
                     var currentmigrations = db.Database.GetMigrations();
                     var appliedmigrations = db.Database.GetAppliedMigrations();
                     if (currentmigrations.Count() > appliedmigrations.Count())
@@ -147,6 +153,7 @@ namespace CertMaker5000
                         else
                         {
                             MessageBox.Show("Sorry, but we cannot continue to work with old database. Please select yes next time you launch the application or downgrade your application");
+                            ExitProgram();
                         }
                     }
                 }
@@ -154,13 +161,15 @@ namespace CertMaker5000
                 {
                     try
                     {
-                        db.Database.EnsureCreated();
+                        //db.Database.EnsureCreated();
+                        db.Database.Migrate();
                         MessageBox.Show("Database Created");
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(connectionerror);
-                        return;
+                        ExitProgram();
+                        
                     }
                 }
             } catch(Exception e)
@@ -176,19 +185,21 @@ namespace CertMaker5000
 
         }
 
+        private void ExitProgram()
+        {
+            this.MyDBSetupFunc = null;
+            Application.Exit();
+        }
+
         internal static Func<DbContextOptionsBuilder, DbContextOptionsBuilder> DialogForDatabaseConfig()
         {
             var form = new MainStartForm();
-            DialogResult result;
+
             try
             {
-               result = form.ShowDialog();
+                form.ShowDialog();
             } 
             catch (Exception ex) {
-                throw;
-            }
-            if(result != DialogResult.OK)
-            {
                 Application.Exit();
             }
             

@@ -131,17 +131,17 @@
             // DescriptionTextBox
             // 
             DescriptionTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            DescriptionTextBox.Location = new Point(17, 128);
+            DescriptionTextBox.Location = new Point(15, 164);
             DescriptionTextBox.Margin = new Padding(3, 2, 3, 2);
             DescriptionTextBox.Multiline = true;
             DescriptionTextBox.Name = "DescriptionTextBox";
-            DescriptionTextBox.Size = new Size(963, 120);
+            DescriptionTextBox.Size = new Size(963, 130);
             DescriptionTextBox.TabIndex = 14;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(17, 110);
+            label7.Location = new Point(15, 147);
             label7.Name = "label7";
             label7.Size = new Size(67, 15);
             label7.TabIndex = 13;
@@ -150,7 +150,7 @@
             // ZipTextBox
             // 
             ZipTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            ZipTextBox.Location = new Point(835, 84);
+            ZipTextBox.Location = new Point(833, 101);
             ZipTextBox.Margin = new Padding(3, 2, 3, 2);
             ZipTextBox.Name = "ZipTextBox";
             ZipTextBox.Size = new Size(145, 23);
@@ -160,7 +160,7 @@
             // 
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label6.AutoSize = true;
-            label6.Location = new Point(802, 86);
+            label6.Location = new Point(794, 109);
             label6.Name = "label6";
             label6.Size = new Size(24, 15);
             label6.TabIndex = 11;
@@ -169,7 +169,7 @@
             // StateTextBox
             // 
             StateTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            StateTextBox.Location = new Point(626, 84);
+            StateTextBox.Location = new Point(624, 101);
             StateTextBox.Margin = new Padding(3, 2, 3, 2);
             StateTextBox.Name = "StateTextBox";
             StateTextBox.Size = new Size(144, 23);
@@ -179,7 +179,7 @@
             // 
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label5.AutoSize = true;
-            label5.Location = new Point(583, 86);
+            label5.Location = new Point(581, 103);
             label5.Name = "label5";
             label5.Size = new Size(33, 15);
             label5.TabIndex = 9;
@@ -188,7 +188,7 @@
             // CityTextBox
             // 
             CityTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            CityTextBox.Location = new Point(90, 84);
+            CityTextBox.Location = new Point(88, 101);
             CityTextBox.Margin = new Padding(3, 2, 3, 2);
             CityTextBox.Name = "CityTextBox";
             CityTextBox.Size = new Size(444, 23);
@@ -197,7 +197,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(52, 86);
+            label4.Location = new Point(50, 103);
             label4.Name = "label4";
             label4.Size = new Size(28, 15);
             label4.TabIndex = 7;
@@ -206,16 +206,17 @@
             // Address2TextBox
             // 
             Address2TextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            Address2TextBox.Location = new Point(90, 59);
+            Address2TextBox.Location = new Point(708, 52);
             Address2TextBox.Margin = new Padding(3, 2, 3, 2);
             Address2TextBox.Name = "Address2TextBox";
-            Address2TextBox.Size = new Size(889, 23);
+            Address2TextBox.Size = new Size(271, 23);
             Address2TextBox.TabIndex = 6;
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new Point(17, 62);
+            label3.Location = new Point(644, 55);
             label3.Name = "label3";
             label3.Size = new Size(58, 15);
             label3.TabIndex = 5;
@@ -224,16 +225,16 @@
             // Address1TextBox
             // 
             Address1TextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            Address1TextBox.Location = new Point(90, 34);
+            Address1TextBox.Location = new Point(90, 52);
             Address1TextBox.Margin = new Padding(3, 2, 3, 2);
             Address1TextBox.Name = "Address1TextBox";
-            Address1TextBox.Size = new Size(889, 23);
+            Address1TextBox.Size = new Size(524, 23);
             Address1TextBox.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(17, 37);
+            label2.Location = new Point(20, 55);
             label2.Name = "label2";
             label2.Size = new Size(58, 15);
             label2.TabIndex = 3;
@@ -263,13 +264,13 @@
             ParticipantsList.AllowUserToDeleteRows = false;
             ParticipantsList.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             ParticipantsList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ParticipantsList.Location = new Point(3, 250);
+            ParticipantsList.Location = new Point(3, 298);
             ParticipantsList.Margin = new Padding(3, 2, 3, 2);
             ParticipantsList.Name = "ParticipantsList";
             ParticipantsList.ReadOnly = true;
             ParticipantsList.RowHeadersWidth = 51;
             ParticipantsList.RowTemplate.Height = 29;
-            ParticipantsList.Size = new Size(982, 351);
+            ParticipantsList.Size = new Size(982, 303);
             ParticipantsList.TabIndex = 0;
             // 
             // EventsButtonLayouPanel

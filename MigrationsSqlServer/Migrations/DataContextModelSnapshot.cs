@@ -22,6 +22,33 @@ namespace MigrationsSqlServer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("DataContextLibrary.Models.Certificates", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FilePathImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePathPDF")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ParticipanstId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ParticipantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParticipantId");
+
+                    b.ToTable("Certificates");
+                });
+
             modelBuilder.Entity("DataContextLibrary.Models.Event", b =>
                 {
                     b.Property<int>("Id")
@@ -29,6 +56,18 @@ namespace MigrationsSqlServer.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -40,6 +79,16 @@ namespace MigrationsSqlServer.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TemplateFilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Zip")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -53,6 +102,18 @@ namespace MigrationsSqlServer.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -75,6 +136,17 @@ namespace MigrationsSqlServer.Migrations
                     b.Property<int?>("Phone")
                         .HasColumnType("int");
 
+                    b.Property<string>("RegisteredEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Zip")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Participants");
@@ -95,6 +167,17 @@ namespace MigrationsSqlServer.Migrations
                     b.ToTable("EventParticipant");
                 });
 
+            modelBuilder.Entity("DataContextLibrary.Models.Certificates", b =>
+                {
+                    b.HasOne("DataContextLibrary.Models.Participant", "Participant")
+                        .WithMany("Certificates")
+                        .HasForeignKey("ParticipantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Participant");
+                });
+
             modelBuilder.Entity("EventParticipant", b =>
                 {
                     b.HasOne("DataContextLibrary.Models.Event", null)
@@ -108,6 +191,11 @@ namespace MigrationsSqlServer.Migrations
                         .HasForeignKey("ParticipantsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataContextLibrary.Models.Participant", b =>
+                {
+                    b.Navigation("Certificates");
                 });
 #pragma warning restore 612, 618
         }

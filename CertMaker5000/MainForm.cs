@@ -11,22 +11,24 @@ namespace CertMaker5000.Screens
         bool DarkTheme = HelperClasses.GetWindowsColorMode();
         List<Form> CurrentOpenForms = new List<Form>();
         EventsForm EventsForm;
+        MailSettingsForm MailSettingsForm;
         List<string> ThemeList = new() { "Light", "Dark" };
         DataContext db;
+
         public MainForm(DataContext db)
         {
             BackgroundColor = HelperClasses.GetSystemColor(DarkTheme);
             ForegroundColor = HelperClasses.GetSystemFontColor(DarkTheme);
-            
+
             InitializeComponent();
             this.db = db;
-            
-            this.EventsForm = new EventsForm(db) { TopLevel = false };
-            
+
+            this.EventsForm = new EventsForm(db) { TopLevel = false, Dock = DockStyle.Fill };
+            this.MailSettingsForm = new MailSettingsForm(db) { TopLevel = false, Dock = DockStyle.Fill };
+
             AddFormsToList();
-            
+
             HideAllTabsOnTabControl(MainTabControl);
-            EventsForm.Dock = DockStyle.Fill;
             ChangeFormInPanel(EventsForm);
             ThemeCombo.ComboBox.DataSource = ThemeList;
             ThemeCombo.SelectedIndex = 0;
@@ -45,14 +47,15 @@ namespace CertMaker5000.Screens
 
         private void ThemeCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(ThemeCombo.Text == string.Empty)
+            if (ThemeCombo.Text == string.Empty)
             {
                 return;
             }
             if (ThemeCombo.Text == "Light")
             {
                 DarkTheme = false;
-            } else if (ThemeCombo.Text == "Dark")
+            }
+            else if (ThemeCombo.Text == "Dark")
             {
                 DarkTheme = true;
             }
@@ -77,8 +80,18 @@ namespace CertMaker5000.Screens
             EventsForm.Dock = DockStyle.Fill;
             ChangeFormInPanel(EventsForm);
         }
+
+        private void mailSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mailSettingsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            ChangeFormInPanel(MailSettingsForm);
+        }
     }
 
-    
-    
+
+
 }

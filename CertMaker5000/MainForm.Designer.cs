@@ -40,6 +40,7 @@ namespace CertMaker5000.Screens
             toolStripMenuItem1 = new ToolStripMenuItem();
             settingsToolStripMenuItem = new ToolStripMenuItem();
             mailSettingsToolStripMenuItem = new ToolStripMenuItem();
+            folderSettingsToolStripMenuItem = new ToolStripMenuItem();
             MainTabControl = new System.Windows.Forms.TabControl();
             MainMenuStrip.SuspendLayout();
             SuspendLayout();
@@ -50,7 +51,8 @@ namespace CertMaker5000.Screens
             MainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, ThemeCombo, toolStripMenuItem1, settingsToolStripMenuItem });
             MainMenuStrip.Location = new Point(0, 0);
             MainMenuStrip.Name = "MainMenuStrip";
-            MainMenuStrip.Size = new Size(1650, 32);
+            MainMenuStrip.Padding = new Padding(5, 2, 0, 2);
+            MainMenuStrip.Size = new Size(1444, 27);
             MainMenuStrip.TabIndex = 22;
             MainMenuStrip.Text = "menuStrip1";
             // 
@@ -58,78 +60,87 @@ namespace CertMaker5000.Screens
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { eventsToolStripMenuItem, participantsToolStripMenuItem, toolStripSeparator1, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(46, 28);
+            fileToolStripMenuItem.Size = new Size(37, 23);
             fileToolStripMenuItem.Text = "File";
             // 
             // eventsToolStripMenuItem
             // 
             eventsToolStripMenuItem.Name = "eventsToolStripMenuItem";
-            eventsToolStripMenuItem.Size = new Size(224, 26);
+            eventsToolStripMenuItem.Size = new Size(136, 22);
             eventsToolStripMenuItem.Text = "Events";
             eventsToolStripMenuItem.Click += eventsToolStripMenuItem_Click;
             // 
             // participantsToolStripMenuItem
             // 
             participantsToolStripMenuItem.Name = "participantsToolStripMenuItem";
-            participantsToolStripMenuItem.Size = new Size(224, 26);
+            participantsToolStripMenuItem.Size = new Size(136, 22);
             participantsToolStripMenuItem.Text = "Participants";
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(221, 6);
+            toolStripSeparator1.Size = new Size(133, 6);
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             exitToolStripMenuItem.ShortcutKeyDisplayString = "";
             exitToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.F4;
-            exitToolStripMenuItem.Size = new Size(224, 26);
+            exitToolStripMenuItem.Size = new Size(136, 22);
             exitToolStripMenuItem.Text = "Exit";
             // 
             // ThemeCombo
             // 
             ThemeCombo.Alignment = ToolStripItemAlignment.Right;
             ThemeCombo.Name = "ThemeCombo";
-            ThemeCombo.Size = new Size(121, 28);
+            ThemeCombo.Size = new Size(106, 23);
             ThemeCombo.SelectedIndexChanged += ThemeCombo_SelectedIndexChanged;
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Enabled = false;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(43, 28);
+            toolStripMenuItem1.Size = new Size(34, 23);
             toolStripMenuItem1.Text = "  |  ";
             // 
             // settingsToolStripMenuItem
             // 
-            settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mailSettingsToolStripMenuItem });
+            settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mailSettingsToolStripMenuItem, folderSettingsToolStripMenuItem });
             settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(76, 28);
+            settingsToolStripMenuItem.Size = new Size(61, 23);
             settingsToolStripMenuItem.Text = "Settings";
             // 
             // mailSettingsToolStripMenuItem
             // 
             mailSettingsToolStripMenuItem.Name = "mailSettingsToolStripMenuItem";
-            mailSettingsToolStripMenuItem.Size = new Size(178, 26);
+            mailSettingsToolStripMenuItem.Size = new Size(180, 22);
             mailSettingsToolStripMenuItem.Text = "Mail Settings";
+            mailSettingsToolStripMenuItem.Click += mailSettingsToolStripMenuItem_Click_1;
+            // 
+            // folderSettingsToolStripMenuItem
+            // 
+            folderSettingsToolStripMenuItem.Name = "folderSettingsToolStripMenuItem";
+            folderSettingsToolStripMenuItem.Size = new Size(180, 22);
+            folderSettingsToolStripMenuItem.Text = "Folder Settings";
             // 
             // MainTabControl
             // 
             MainTabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            MainTabControl.Location = new Point(12, 35);
+            MainTabControl.Location = new Point(10, 26);
+            MainTabControl.Margin = new Padding(3, 2, 3, 2);
             MainTabControl.Name = "MainTabControl";
             MainTabControl.SelectedIndex = 0;
-            MainTabControl.Size = new Size(1626, 819);
+            MainTabControl.Size = new Size(1423, 614);
             MainTabControl.TabIndex = 23;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1650, 866);
+            ClientSize = new Size(1444, 650);
             Controls.Add(MainTabControl);
             Controls.Add(MainMenuStrip);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "MainForm";
             Text = "MainForm";
             MainMenuStrip.ResumeLayout(false);
@@ -150,6 +161,6 @@ namespace CertMaker5000.Screens
         private ToolStripMenuItem mailSettingsToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.TabControl MainTabControl;
-
+        private ToolStripMenuItem folderSettingsToolStripMenuItem;
     }
 }

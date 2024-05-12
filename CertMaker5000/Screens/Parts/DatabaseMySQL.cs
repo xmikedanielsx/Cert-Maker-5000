@@ -26,13 +26,13 @@ namespace CertMaker5000
 
         public DbContextOptions<DataContext> GetDbContextOptions()
         {
-            return 
+            return
                 MySQLDbContextOptionsExtensions
                     .UseMySQL(new DbContextOptionsBuilder<DataContext>(), GetConnectionString())
                     .Options;
         }
         public DbContextOptionsBuilder BuildOptions(DbContextOptionsBuilder builder)
-            => builder.UseMySQL(GetConnectionString(),x => x.MigrationsAssembly("MigrationsMySQL"));
+            => builder.UseMySQL(GetConnectionString(), x => x.MigrationsAssembly("MigrationsMySQL"));
 
 
         public string GetConnectionString()
@@ -44,7 +44,7 @@ namespace CertMaker5000
             csb.Database = SqlServerDatabaseText.Text;
             csb.UserID = SqlServerUser.Text;
             csb.Password = SqlServerPass.Text;
-            
+
             return csb.ConnectionString;
 
         }

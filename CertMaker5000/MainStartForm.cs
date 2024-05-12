@@ -2,8 +2,6 @@
 using CertMaker5000.Screens.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using CertMaker5000.Screens.Parts;
-using Microsoft.Data.Sqlite;
-using DataContextLibrary.Models;
 using System.Runtime.CompilerServices;
 
 namespace CertMaker5000
@@ -39,7 +37,11 @@ namespace CertMaker5000
             }
         };
         List<DatabasesSupportedListItem> DatabaseTypesSupported;
-        //DataContext db;
+        private static Random random = new Random();
+        string RandomKey = RandomString(64);
+        DirectoryInfo AppFolder = Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CertMaker5000"));
+        FileInfo SettingsFile;
+        FileInfo SecretFile;
 
         private MainStartForm()
         {
@@ -48,6 +50,41 @@ namespace CertMaker5000
             ForeColor = HelperClasses.GetSystemFontColor(HelperClasses.GetWindowsColorMode());
             this.CenterToScreen();
             LoadDBTypesAsDeployed();
+
+            SettingsAndStuff();
+        }
+
+        private void SettingsAndStuff()
+        {
+            string SettingsFilePath = Path.Combine(AppFolder.FullName, ".settings");
+            string SecretFilePath = Path.Combine(AppFolder.FullName, ".id");
+            if (!File.Exists(SettingsFilePath))
+                File.AppendAllText(SettingsFilePath, String.Empty);
+            if (!File.Exists(SecretFilePath))
+                File.AppendAllText(SecretFilePath, String.Empty);
+            SettingsFile = new FileInfo(SettingsFilePath);
+            SecretFile = new FileInfo(SecretFilePath);
+            if (TotalLines(SecretFilePath) == 0)
+            {
+                File.AppendAllText(SecretFile.FullName, RandomKey);
+            }
+        }
+
+        int TotalLines(string filePath)
+        {
+            using (StreamReader r = new StreamReader(filePath))
+            {
+                int i = 0;
+                while (r.ReadLine() != null) { i++; }
+                return i;
+            }
+        }
+
+        public static string RandomString(int length)
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         private void LoadDBTypesAsDeployed()

@@ -41,27 +41,26 @@
             // DatabaseLocationText
             // 
             DatabaseLocationText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            DatabaseLocationText.Location = new Point(178, 56);
-            DatabaseLocationText.Margin = new Padding(3, 4, 3, 4);
+            DatabaseLocationText.Location = new Point(156, 42);
             DatabaseLocationText.Name = "DatabaseLocationText";
-            DatabaseLocationText.Size = new Size(891, 27);
+            DatabaseLocationText.Size = new Size(780, 23);
             DatabaseLocationText.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(31, 61);
+            label1.Location = new Point(27, 46);
             label1.Name = "label1";
-            label1.Size = new Size(133, 20);
+            label1.Size = new Size(104, 15);
             label1.TabIndex = 1;
             label1.Text = "Database Location";
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label2.Location = new Point(31, 131);
+            label2.Location = new Point(27, 98);
             label2.Name = "label2";
-            label2.Size = new Size(1075, 140);
+            label2.Size = new Size(941, 105);
             label2.TabIndex = 2;
             label2.Text = resources.GetString("label2.Text");
             // 
@@ -70,10 +69,9 @@
             BrowseDatabaseButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BrowseDatabaseButton.BackColor = SystemColors.Control;
             BrowseDatabaseButton.ForeColor = SystemColors.ControlText;
-            BrowseDatabaseButton.Location = new Point(1075, 56);
-            BrowseDatabaseButton.Margin = new Padding(3, 4, 3, 4);
+            BrowseDatabaseButton.Location = new Point(941, 42);
             BrowseDatabaseButton.Name = "BrowseDatabaseButton";
-            BrowseDatabaseButton.Size = new Size(31, 31);
+            BrowseDatabaseButton.Size = new Size(27, 23);
             BrowseDatabaseButton.TabIndex = 15;
             BrowseDatabaseButton.Text = "...";
             BrowseDatabaseButton.UseVisualStyleBackColor = false;
@@ -82,9 +80,9 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(94, 94);
+            label3.Location = new Point(82, 70);
             label3.Name = "label3";
-            label3.Size = new Size(70, 20);
+            label3.Size = new Size(57, 15);
             label3.TabIndex = 17;
             label3.Text = "Password";
             // 
@@ -92,26 +90,26 @@
             // 
             DatabasePasswordText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             DatabasePasswordText.Enabled = false;
-            DatabasePasswordText.Location = new Point(178, 91);
-            DatabasePasswordText.Margin = new Padding(3, 4, 3, 4);
+            DatabasePasswordText.Location = new Point(156, 68);
             DatabasePasswordText.Name = "DatabasePasswordText";
-            DatabasePasswordText.Size = new Size(336, 27);
+            DatabasePasswordText.PasswordChar = '*';
+            DatabasePasswordText.Size = new Size(294, 23);
             DatabasePasswordText.TabIndex = 16;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(533, 98);
+            label4.Location = new Point(466, 74);
             label4.Name = "label4";
-            label4.Size = new Size(413, 20);
+            label4.Size = new Size(330, 15);
             label4.TabIndex = 18;
             label4.Text = "Note: Password Not Required.  * still working on this feature *";
             // 
             // DatabaseSqliteForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1126, 280);
+            ClientSize = new Size(985, 210);
             ControlBox = false;
             Controls.Add(label4);
             Controls.Add(label3);
@@ -121,7 +119,6 @@
             Controls.Add(label1);
             Controls.Add(DatabaseLocationText);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "DatabaseSqliteForm";

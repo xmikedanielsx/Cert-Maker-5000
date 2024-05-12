@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             OutsideSplitContainer = new SplitContainer();
+            SqlServerPortText = new TextBox();
+            label5 = new Label();
             SqlServerText = new TextBox();
             label1 = new Label();
             InsideSplitContainer = new SplitContainer();
@@ -38,8 +40,6 @@
             label3 = new Label();
             SqlServerDatabaseText = new TextBox();
             label2 = new Label();
-            SqlServerPortText = new TextBox();
-            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)OutsideSplitContainer).BeginInit();
             OutsideSplitContainer.Panel1.SuspendLayout();
             OutsideSplitContainer.Panel2.SuspendLayout();
@@ -52,8 +52,7 @@
             // 
             // OutsideSplitContainer
             // 
-            OutsideSplitContainer.Location = new Point(12, 13);
-            OutsideSplitContainer.Margin = new Padding(3, 4, 3, 4);
+            OutsideSplitContainer.Location = new Point(10, 10);
             OutsideSplitContainer.Name = "OutsideSplitContainer";
             OutsideSplitContainer.Orientation = Orientation.Horizontal;
             // 
@@ -67,24 +66,39 @@
             // OutsideSplitContainer.Panel2
             // 
             OutsideSplitContainer.Panel2.Controls.Add(InsideSplitContainer);
-            OutsideSplitContainer.Size = new Size(923, 200);
-            OutsideSplitContainer.SplitterWidth = 5;
+            OutsideSplitContainer.Size = new Size(808, 150);
+            OutsideSplitContainer.SplitterDistance = 37;
             OutsideSplitContainer.TabIndex = 5;
+            // 
+            // SqlServerPortText
+            // 
+            SqlServerPortText.Location = new Point(606, 8);
+            SqlServerPortText.Name = "SqlServerPortText";
+            SqlServerPortText.Size = new Size(182, 23);
+            SqlServerPortText.TabIndex = 2;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(561, 10);
+            label5.Name = "label5";
+            label5.Size = new Size(29, 15);
+            label5.TabIndex = 3;
+            label5.Text = "Port";
             // 
             // SqlServerText
             // 
-            SqlServerText.Location = new Point(96, 11);
-            SqlServerText.Margin = new Padding(3, 4, 3, 4);
+            SqlServerText.Location = new Point(84, 8);
             SqlServerText.Name = "SqlServerText";
-            SqlServerText.Size = new Size(504, 27);
+            SqlServerText.Size = new Size(442, 23);
             SqlServerText.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(19, 11);
+            label1.Location = new Point(17, 8);
             label1.Name = "label1";
-            label1.Size = new Size(50, 20);
+            label1.Size = new Size(39, 15);
             label1.TabIndex = 1;
             label1.Text = "Server";
             // 
@@ -92,7 +106,6 @@
             // 
             InsideSplitContainer.Dock = DockStyle.Fill;
             InsideSplitContainer.Location = new Point(0, 0);
-            InsideSplitContainer.Margin = new Padding(3, 4, 3, 4);
             InsideSplitContainer.Name = "InsideSplitContainer";
             InsideSplitContainer.Orientation = Orientation.Horizontal;
             // 
@@ -107,88 +120,67 @@
             // 
             InsideSplitContainer.Panel2.Controls.Add(SqlServerDatabaseText);
             InsideSplitContainer.Panel2.Controls.Add(label2);
-            InsideSplitContainer.Size = new Size(923, 145);
-            InsideSplitContainer.SplitterDistance = 58;
-            InsideSplitContainer.SplitterWidth = 5;
+            InsideSplitContainer.Size = new Size(808, 109);
+            InsideSplitContainer.SplitterDistance = 43;
             InsideSplitContainer.TabIndex = 5;
             // 
             // SqlServerUser
             // 
-            SqlServerUser.Location = new Point(105, 12);
-            SqlServerUser.Margin = new Padding(3, 4, 3, 4);
+            SqlServerUser.Location = new Point(92, 9);
             SqlServerUser.Name = "SqlServerUser";
-            SqlServerUser.Size = new Size(355, 27);
+            SqlServerUser.Size = new Size(311, 23);
             SqlServerUser.TabIndex = 5;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(31, 19);
+            label4.Location = new Point(27, 14);
             label4.Name = "label4";
-            label4.Size = new Size(38, 20);
+            label4.Size = new Size(30, 15);
             label4.TabIndex = 6;
             label4.Text = "User";
             // 
             // SqlServerPass
             // 
-            SqlServerPass.Location = new Point(547, 12);
-            SqlServerPass.Margin = new Padding(3, 4, 3, 4);
+            SqlServerPass.Location = new Point(479, 9);
             SqlServerPass.Name = "SqlServerPass";
-            SqlServerPass.Size = new Size(354, 27);
+            SqlServerPass.PasswordChar = '*';
+            SqlServerPass.Size = new Size(310, 23);
             SqlServerPass.TabIndex = 3;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(496, 15);
+            label3.Location = new Point(434, 11);
             label3.Name = "label3";
-            label3.Size = new Size(36, 20);
+            label3.Size = new Size(30, 15);
             label3.TabIndex = 4;
             label3.Text = "Pass";
             // 
             // SqlServerDatabaseText
             // 
-            SqlServerDatabaseText.Location = new Point(110, 11);
-            SqlServerDatabaseText.Margin = new Padding(3, 4, 3, 4);
+            SqlServerDatabaseText.Location = new Point(96, 8);
             SqlServerDatabaseText.Name = "SqlServerDatabaseText";
-            SqlServerDatabaseText.Size = new Size(791, 27);
+            SqlServerDatabaseText.Size = new Size(693, 23);
             SqlServerDatabaseText.TabIndex = 2;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(13, 15);
+            label2.Location = new Point(11, 11);
             label2.Name = "label2";
-            label2.Size = new Size(72, 20);
+            label2.Size = new Size(55, 15);
             label2.TabIndex = 3;
             label2.Text = "Database";
             // 
-            // SqlServerPortText
-            // 
-            SqlServerPortText.Location = new Point(693, 11);
-            SqlServerPortText.Margin = new Padding(3, 4, 3, 4);
-            SqlServerPortText.Name = "SqlServerPortText";
-            SqlServerPortText.Size = new Size(208, 27);
-            SqlServerPortText.TabIndex = 2;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(641, 14);
-            label5.Name = "label5";
-            label5.Size = new Size(35, 20);
-            label5.TabIndex = 3;
-            label5.Text = "Port";
-            // 
             // DatabasePostgresqlForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(975, 249);
+            ClientSize = new Size(853, 187);
             ControlBox = false;
             Controls.Add(OutsideSplitContainer);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "DatabasePostgresqlForm";

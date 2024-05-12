@@ -27,14 +27,14 @@ namespace CertMaker5000
 
         public DbContextOptions<DataContext> GetDbContextOptions()
         {
-            return 
+            return
                 NpgsqlDbContextOptionsBuilderExtensions
                     .UseNpgsql(new DbContextOptionsBuilder<DataContext>(), GetConnectionString())
                     .Options;
         }
         public DbContextOptionsBuilder BuildOptions(DbContextOptionsBuilder builder)
             //=> builder.UseNpgsql(GetConnectionString());
-            => builder.UseNpgsql(GetConnectionString(),x => x.MigrationsAssembly("MigrationsPostgresql"));
+            => builder.UseNpgsql(GetConnectionString(), x => x.MigrationsAssembly("MigrationsPostgresql"));
 
 
         public string GetConnectionString()
@@ -46,7 +46,7 @@ namespace CertMaker5000
             csb.Database = SqlServerDatabaseText.Text;
             csb.Username = SqlServerUser.Text;
             csb.Password = SqlServerPass.Text;
-            
+
             return csb.ConnectionString;
 
         }

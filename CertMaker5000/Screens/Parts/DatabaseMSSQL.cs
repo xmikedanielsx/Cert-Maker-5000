@@ -49,10 +49,10 @@ namespace CertMaker5000
 
         public DbContextOptionsBuilder BuildOptions(DbContextOptionsBuilder builder)
             //=> builder.UseSqlServer(GetConnectionString());
-            => builder.UseSqlServer(GetConnectionString(),x => x.MigrationsAssembly("MigrationsSqlServer"));
-        
+            => builder.UseSqlServer(GetConnectionString(), x => x.MigrationsAssembly("MigrationsSqlServer"));
 
-        public string GetConnectionString() 
+
+        public string GetConnectionString()
         {
 
             SqlConnectionStringBuilder csb = new();
@@ -63,7 +63,8 @@ namespace CertMaker5000
             {
                 csb.UserID = SqlServerUser.Text;
                 csb.Password = SqlServerPass.Text;
-            } else
+            }
+            else
             {
                 csb.IntegratedSecurity = true;
             }
